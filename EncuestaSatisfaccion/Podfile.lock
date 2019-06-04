@@ -1,0 +1,97 @@
+PODS:
+  - Alamofire (4.8.1)
+  - AlamofireObjectMapper (5.2.0):
+    - Alamofire (~> 4.7)
+    - ObjectMapper (~> 3.4)
+  - CameraBackground (1.6.1):
+    - CameraBackground/Resources (= 1.6.1)
+    - MiniLayout
+    - MultiToggleButton
+  - CameraBackground/Resources (1.6.1):
+    - MiniLayout
+    - MultiToggleButton
+  - ChameleonFramework (2.1.0):
+    - ChameleonFramework/Default (= 2.1.0)
+  - ChameleonFramework/Default (2.1.0)
+  - Cosmos (18.0.1)
+  - EmailValidator (1.0.2)
+  - KRActivityIndicatorView (3.0.0)
+  - KRProgressHUD (3.4.0):
+    - KRActivityIndicatorView (= 3.0.0)
+  - MiniLayout (1.4.0)
+  - MTBBarcodeScanner (5.0.8)
+  - MultiToggleButton (1.8.0)
+  - ObjectMapper (3.4.2)
+  - PPBadgeViewSwift (2.2.2)
+  - ReachabilitySwift (4.3.0)
+  - Realm (3.13.1):
+    - Realm/Headers (= 3.13.1)
+  - Realm/Headers (3.13.1)
+  - RealmSwift (3.13.1):
+    - Realm (= 3.13.1)
+  - RSBarcodes_Swift (4.2.1)
+  - SideMenu (5.0.3)
+  - "UITextView+Placeholder (1.2.1)"
+
+DEPENDENCIES:
+  - Alamofire
+  - AlamofireObjectMapper (~> 5.0)
+  - CameraBackground
+  - ChameleonFramework
+  - Cosmos (~> 18.0)
+  - EmailValidator
+  - KRProgressHUD
+  - MTBBarcodeScanner
+  - PPBadgeViewSwift
+  - ReachabilitySwift
+  - RealmSwift
+  - RSBarcodes_Swift (~> 4.2.1)
+  - SideMenu
+  - "UITextView+Placeholder"
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - AlamofireObjectMapper
+    - CameraBackground
+    - ChameleonFramework
+    - Cosmos
+    - EmailValidator
+    - KRActivityIndicatorView
+    - KRProgressHUD
+    - MiniLayout
+    - MTBBarcodeScanner
+    - MultiToggleButton
+    - ObjectMapper
+    - PPBadgeViewSwift
+    - ReachabilitySwift
+    - Realm
+    - RealmSwift
+    - RSBarcodes_Swift
+    - SideMenu
+    - "UITextView+Placeholder"
+
+SPEC CHECKSUMS:
+  Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
+  AlamofireObjectMapper: 92b6ce2423a9d159e686f6a1d514a009bf903ddc
+  CameraBackground: 0a67e3c5491fe47c5c8c56b2044816604cb241c4
+  ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
+  Cosmos: 7dfaa3f52584ca5f94ab74b5c2e264019cc9f7f5
+  EmailValidator: 366dc0ddedcc457ae14d269fa056416a6730d6ea
+  KRActivityIndicatorView: c414000730a6f4969eeb354bee4f2aebc89c2c2e
+  KRProgressHUD: 79c8703f82179fe34b3602f10b30726f887983fa
+  MiniLayout: e35331ce9ab50a4111c3f91deca158834f86d9e7
+  MTBBarcodeScanner: 5b97f10a037e2560ff104da413343c5ce9413911
+  MultiToggleButton: eca1625dab98b028e878c18c624eee05cac83c96
+  ObjectMapper: 0d4402610f4e468903ae64629eec4784531e5c51
+  PPBadgeViewSwift: 96a41852df7437e9d948565a1bc894f757c29933
+  ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
+  Realm: 50071da38fe079e0735e47c9f2eae738c68c5996
+  RealmSwift: 8a1e6a02b7a08cd17a31e3115143fb69fe5f3fb9
+  RSBarcodes_Swift: c58d107e6d2149cc34a23f02828d400dbb708101
+  SideMenu: 1dcaabce84538c53325c287f7fe62999379a641c
+  "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
+
+PODFILE CHECKSUM: cbe836daf22e6834c9debceb2b30224beaaaf22e
+
+COCOAPODS: 1.5.3

@@ -1,0 +1,684 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1E0A714451D28CA4D0C8CB98 /* Pods_EncuestaSatisfaccion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F77C8A0A94879BE08954EAB /* Pods_EncuestaSatisfaccion.framework */; };
+		56164CA52283265C005B11C8 /* EncuestaSeleccionadaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56164CA42283265C005B11C8 /* EncuestaSeleccionadaModel.swift */; };
+		56287754220DF1B8005BE1FF /* ResultadoEncuesta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56287753220DF1B8005BE1FF /* ResultadoEncuesta.swift */; };
+		56287756220DF24E005BE1FF /* DetalleResultadoEncuesta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56287755220DF24E005BE1FF /* DetalleResultadoEncuesta.swift */; };
+		562A581D229D89AB00322B12 /* Graphik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 562A5818229D89AA00322B12 /* Graphik-Bold.ttf */; };
+		562A581E229D89AB00322B12 /* Graphik-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 562A5819229D89AA00322B12 /* Graphik-Light.ttf */; };
+		562A581F229D89AB00322B12 /* Graphik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 562A581A229D89AA00322B12 /* Graphik-Medium.ttf */; };
+		562A5820229D89AB00322B12 /* Graphik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 562A581B229D89AB00322B12 /* Graphik-Regular.ttf */; };
+		562A5821229D89AB00322B12 /* Graphik-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 562A581C229D89AB00322B12 /* Graphik-Semibold.ttf */; };
+		562A5823229DEA1800322B12 /* ConfiguracionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562A5822229DEA1800322B12 /* ConfiguracionTableViewController.swift */; };
+		562CFCD521F6613100544D4C /* EncuestaBO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562CFCD421F6613100544D4C /* EncuestaBO.swift */; };
+		562CFCD921F673DC00544D4C /* UIBarButtonItem+Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562CFCD821F673DC00544D4C /* UIBarButtonItem+Badge.swift */; };
+		562E6C6621FB73C5005A1513 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562E6C6521FB73C5005A1513 /* HomeViewController.swift */; };
+		5653F01421FF8CBD00C93ACC /* ResumenTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5653F01321FF8CBD00C93ACC /* ResumenTableViewController.swift */; };
+		5653F0172202064600C93ACC /* TipoPreguntaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5653F0162202064600C93ACC /* TipoPreguntaModel.swift */; };
+		5653F019220237D300C93ACC /* OpcionesPreguntaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5653F018220237D300C93ACC /* OpcionesPreguntaModel.swift */; };
+		565849A3220A2F98002CDAC3 /* BarCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565849A2220A2F98002CDAC3 /* BarCodeViewController.swift */; };
+		5659D47921F79D6300595E09 /* PendientesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659D47821F79D6300595E09 /* PendientesTableViewController.swift */; };
+		5659D47B21F7A32600595E09 /* DetallePendienteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659D47A21F7A32600595E09 /* DetallePendienteViewController.swift */; };
+		5659D47D21F7CF5200595E09 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5659D47C21F7CF5100595E09 /* MenuTableViewController.swift */; };
+		56642B3C21F6307400456173 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56642B3B21F6307400456173 /* NetworkHelper.swift */; };
+		5664A39621F7839900A5A233 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5664A39521F7839900A5A233 /* Badge.swift */; };
+		566C623521F114FC005F394F /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566C623421F114FC005F394F /* LoginModel.swift */; };
+		566C623721F12AE0005F394F /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566C623621F12AE0005F394F /* RealmHelper.swift */; };
+		568C0B9D21FA576D009F0B4D /* EncuestaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568C0B9C21FA576D009F0B4D /* EncuestaTableViewCell.swift */; };
+		56AE035322036A9300157AD1 /* EnvioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AE035222036A9300157AD1 /* EnvioViewController.swift */; };
+		56DEEEB321EFCAAE001481A7 /* EncuestasTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DEEEB221EFCAAE001481A7 /* EncuestasTableViewController.swift */; };
+		7E2123C521ED5FDA00AA06F4 /* SucursalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2123C421ED5FDA00AA06F4 /* SucursalModel.swift */; };
+		7E2834BD21ED46A400DD1C36 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2834BC21ED46A400DD1C36 /* LoginViewController.swift */; };
+		7E3AC84D21E7F9BA00D13A14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3AC84C21E7F9BA00D13A14 /* AppDelegate.swift */; };
+		7E3AC85221E7F9BA00D13A14 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E3AC85021E7F9BA00D13A14 /* Main.storyboard */; };
+		7E3AC85521E7F9BA00D13A14 /* EncuestaSatisfaccion.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7E3AC85321E7F9BA00D13A14 /* EncuestaSatisfaccion.xcdatamodeld */; };
+		7E3AC85721E7F9BC00D13A14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E3AC85621E7F9BC00D13A14 /* Assets.xcassets */; };
+		7E3AC85A21E7F9BC00D13A14 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E3AC85821E7F9BC00D13A14 /* LaunchScreen.storyboard */; };
+		7E4B53E321E8F8E100B81C9C /* TipoPreguntaEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4B53E221E8F8E100B81C9C /* TipoPreguntaEnum.swift */; };
+		7E4B53E521E9156300B81C9C /* EncuestaRespuestas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4B53E421E9156300B81C9C /* EncuestaRespuestas.swift */; };
+		7E73D3B821E807D800F61334 /* EncuestaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E73D3B721E807D800F61334 /* EncuestaManager.swift */; };
+		7E73D3BC21E807F100F61334 /* PreguntaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E73D3BA21E807F000F61334 /* PreguntaModel.swift */; };
+		7E73D3BD21E807F100F61334 /* EncuestaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E73D3BB21E807F000F61334 /* EncuestaModel.swift */; };
+		7EEE250B21E8161D006DB7E6 /* EncuestaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEE250A21E8161D006DB7E6 /* EncuestaViewController.swift */; };
+		7EEE250E21E81672006DB7E6 /* SharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEE250D21E81672006DB7E6 /* SharedData.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1F77C8A0A94879BE08954EAB /* Pods_EncuestaSatisfaccion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EncuestaSatisfaccion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		56164CA42283265C005B11C8 /* EncuestaSeleccionadaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncuestaSeleccionadaModel.swift; sourceTree = "<group>"; };
+		56287753220DF1B8005BE1FF /* ResultadoEncuesta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultadoEncuesta.swift; sourceTree = "<group>"; };
+		56287755220DF24E005BE1FF /* DetalleResultadoEncuesta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetalleResultadoEncuesta.swift; sourceTree = "<group>"; };
+		562A5818229D89AA00322B12 /* Graphik-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Graphik-Bold.ttf"; sourceTree = "<group>"; };
+		562A5819229D89AA00322B12 /* Graphik-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Graphik-Light.ttf"; sourceTree = "<group>"; };
+		562A581A229D89AA00322B12 /* Graphik-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Graphik-Medium.ttf"; sourceTree = "<group>"; };
+		562A581B229D89AB00322B12 /* Graphik-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Graphik-Regular.ttf"; sourceTree = "<group>"; };
+		562A581C229D89AB00322B12 /* Graphik-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Graphik-Semibold.ttf"; sourceTree = "<group>"; };
+		562A5822229DEA1800322B12 /* ConfiguracionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfiguracionTableViewController.swift; sourceTree = "<group>"; };
+		562CFCD421F6613100544D4C /* EncuestaBO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncuestaBO.swift; sourceTree = "<group>"; };
+		562CFCD821F673DC00544D4C /* UIBarButtonItem+Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Badge.swift"; sourceTree = "<group>"; };
+		562E6C6521FB73C5005A1513 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		5653F01321FF8CBD00C93ACC /* ResumenTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumenTableViewController.swift; sourceTree = "<group>"; };
+		5653F0162202064600C93ACC /* TipoPreguntaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipoPreguntaModel.swift; sourceTree = "<group>"; };
+		5653F018220237D300C93ACC /* OpcionesPreguntaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpcionesPreguntaModel.swift; sourceTree = "<group>"; };
+		565849A2220A2F98002CDAC3 /* BarCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarCodeViewController.swift; sourceTree = "<group>"; };
+		5659D47821F79D6300595E09 /* PendientesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendientesTableViewController.swift; sourceTree = "<group>"; };
+		5659D47A21F7A32600595E09 /* DetallePendienteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetallePendienteViewController.swift; sourceTree = "<group>"; };
+		5659D47C21F7CF5100595E09 /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
+		56642B3B21F6307400456173 /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
+		5664A39521F7839900A5A233 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
+		566C623421F114FC005F394F /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		566C623621F12AE0005F394F /* RealmHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
+		568C0B9C21FA576D009F0B4D /* EncuestaTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncuestaTableViewCell.swift; sourceTree = "<group>"; };
+		56AE035222036A9300157AD1 /* EnvioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvioViewController.swift; sourceTree = "<group>"; };
+		56DEEEB221EFCAAE001481A7 /* EncuestasTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncuestasTableViewController.swift; sourceTree = "<group>"; };
+		7E2123C421ED5FDA00AA06F4 /* SucursalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SucursalModel.swift; sourceTree = "<group>"; };
+		7E2834BC21ED46A400DD1C36 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		7E3AC84921E7F9BA00D13A14 /* EncuestaSatisfaccion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EncuestaSatisfaccion.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E3AC84C21E7F9BA00D13A14 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7E3AC85121E7F9BA00D13A14 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7E3AC85421E7F9BA00D13A14 /* EncuestaSatisfaccion.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EncuestaSatisfaccion.xcdatamodel; sourceTree = "<group>"; };
+		7E3AC85621E7F9BC00D13A14 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7E3AC85921E7F9BC00D13A14 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7E3AC85B21E7F9BC00D13A14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7E4B53E221E8F8E100B81C9C /* TipoPreguntaEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipoPreguntaEnum.swift; sourceTree = "<group>"; };
+		7E4B53E421E9156300B81C9C /* EncuestaRespuestas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncuestaRespuestas.swift; sourceTree = "<group>"; };
+		7E73D3B721E807D800F61334 /* EncuestaManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncuestaManager.swift; sourceTree = "<group>"; };
+		7E73D3BA21E807F000F61334 /* PreguntaModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreguntaModel.swift; sourceTree = "<group>"; };
+		7E73D3BB21E807F000F61334 /* EncuestaModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncuestaModel.swift; sourceTree = "<group>"; };
+		7EEE250A21E8161D006DB7E6 /* EncuestaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncuestaViewController.swift; sourceTree = "<group>"; };
+		7EEE250D21E81672006DB7E6 /* SharedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedData.swift; sourceTree = "<group>"; };
+		A297A480F5D1D28F0A66C883 /* Pods-EncuestaSatisfaccion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncuestaSatisfaccion.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EncuestaSatisfaccion/Pods-EncuestaSatisfaccion.debug.xcconfig"; sourceTree = "<group>"; };
+		E58356E49D833311DB8C8FB3 /* Pods-EncuestaSatisfaccion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EncuestaSatisfaccion.release.xcconfig"; path = "Pods/Target Support Files/Pods-EncuestaSatisfaccion/Pods-EncuestaSatisfaccion.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7E3AC84621E7F9BA00D13A14 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E0A714451D28CA4D0C8CB98 /* Pods_EncuestaSatisfaccion.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3AB244D118AF502372194B5A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A297A480F5D1D28F0A66C883 /* Pods-EncuestaSatisfaccion.debug.xcconfig */,
+				E58356E49D833311DB8C8FB3 /* Pods-EncuestaSatisfaccion.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		562CFCD721F673CA00544D4C /* Extensiones */ = {
+			isa = PBXGroup;
+			children = (
+				562CFCD821F673DC00544D4C /* UIBarButtonItem+Badge.swift */,
+				5664A39521F7839900A5A233 /* Badge.swift */,
+			);
+			path = Extensiones;
+			sourceTree = "<group>";
+		};
+		564E6CF521F0DA8D001DD010 /* DatabaseHelper */ = {
+			isa = PBXGroup;
+			children = (
+				566C623621F12AE0005F394F /* RealmHelper.swift */,
+			);
+			path = DatabaseHelper;
+			sourceTree = "<group>";
+		};
+		5653F0152202036500C93ACC /* DataModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DataModels;
+			sourceTree = "<group>";
+		};
+		566CE3D62285F60000563933 /* CustomFonts */ = {
+			isa = PBXGroup;
+			children = (
+				562A5818229D89AA00322B12 /* Graphik-Bold.ttf */,
+				562A5819229D89AA00322B12 /* Graphik-Light.ttf */,
+				562A581A229D89AA00322B12 /* Graphik-Medium.ttf */,
+				562A581B229D89AB00322B12 /* Graphik-Regular.ttf */,
+				562A581C229D89AB00322B12 /* Graphik-Semibold.ttf */,
+			);
+			path = CustomFonts;
+			sourceTree = "<group>";
+		};
+		7E3AC84021E7F9BA00D13A14 = {
+			isa = PBXGroup;
+			children = (
+				7E3AC84B21E7F9BA00D13A14 /* EncuestaSatisfaccion */,
+				7E3AC84A21E7F9BA00D13A14 /* Products */,
+				3AB244D118AF502372194B5A /* Pods */,
+				DE08817C457E70DD8ABD6F76 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		7E3AC84A21E7F9BA00D13A14 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7E3AC84921E7F9BA00D13A14 /* EncuestaSatisfaccion.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7E3AC84B21E7F9BA00D13A14 /* EncuestaSatisfaccion */ = {
+			isa = PBXGroup;
+			children = (
+				566CE3D62285F60000563933 /* CustomFonts */,
+				562CFCD721F673CA00544D4C /* Extensiones */,
+				564E6CF521F0DA8D001DD010 /* DatabaseHelper */,
+				7E4B53E121E8F8C600B81C9C /* Enum */,
+				7E4B53DE21E81E1800B81C9C /* Celdas */,
+				7EEE250C21E81662006DB7E6 /* Singleton */,
+				7EEE250921E815FF006DB7E6 /* ViewControllers */,
+				7E73D3B921E807E700F61334 /* Models */,
+				5653F0152202036500C93ACC /* DataModels */,
+				7E73D3B621E807BC00F61334 /* ServiceManager */,
+				7E3AC84C21E7F9BA00D13A14 /* AppDelegate.swift */,
+				7E3AC85021E7F9BA00D13A14 /* Main.storyboard */,
+				7E3AC85621E7F9BC00D13A14 /* Assets.xcassets */,
+				7E3AC85821E7F9BC00D13A14 /* LaunchScreen.storyboard */,
+				7E3AC85B21E7F9BC00D13A14 /* Info.plist */,
+				7E3AC85321E7F9BA00D13A14 /* EncuestaSatisfaccion.xcdatamodeld */,
+			);
+			path = EncuestaSatisfaccion;
+			sourceTree = "<group>";
+		};
+		7E4B53DE21E81E1800B81C9C /* Celdas */ = {
+			isa = PBXGroup;
+			children = (
+				568C0B9C21FA576D009F0B4D /* EncuestaTableViewCell.swift */,
+			);
+			path = Celdas;
+			sourceTree = "<group>";
+		};
+		7E4B53E121E8F8C600B81C9C /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				7E4B53E221E8F8E100B81C9C /* TipoPreguntaEnum.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		7E73D3B621E807BC00F61334 /* ServiceManager */ = {
+			isa = PBXGroup;
+			children = (
+				7E73D3B721E807D800F61334 /* EncuestaManager.swift */,
+			);
+			path = ServiceManager;
+			sourceTree = "<group>";
+		};
+		7E73D3B921E807E700F61334 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7E73D3BB21E807F000F61334 /* EncuestaModel.swift */,
+				7E73D3BA21E807F000F61334 /* PreguntaModel.swift */,
+				5653F0162202064600C93ACC /* TipoPreguntaModel.swift */,
+				5653F018220237D300C93ACC /* OpcionesPreguntaModel.swift */,
+				7E4B53E421E9156300B81C9C /* EncuestaRespuestas.swift */,
+				7E2123C421ED5FDA00AA06F4 /* SucursalModel.swift */,
+				566C623421F114FC005F394F /* LoginModel.swift */,
+				562CFCD421F6613100544D4C /* EncuestaBO.swift */,
+				56287753220DF1B8005BE1FF /* ResultadoEncuesta.swift */,
+				56287755220DF24E005BE1FF /* DetalleResultadoEncuesta.swift */,
+				56164CA42283265C005B11C8 /* EncuestaSeleccionadaModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7EEE250921E815FF006DB7E6 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				7EEE250A21E8161D006DB7E6 /* EncuestaViewController.swift */,
+				7E2834BC21ED46A400DD1C36 /* LoginViewController.swift */,
+				56DEEEB221EFCAAE001481A7 /* EncuestasTableViewController.swift */,
+				5659D47821F79D6300595E09 /* PendientesTableViewController.swift */,
+				5659D47A21F7A32600595E09 /* DetallePendienteViewController.swift */,
+				5659D47C21F7CF5100595E09 /* MenuTableViewController.swift */,
+				562E6C6521FB73C5005A1513 /* HomeViewController.swift */,
+				5653F01321FF8CBD00C93ACC /* ResumenTableViewController.swift */,
+				56AE035222036A9300157AD1 /* EnvioViewController.swift */,
+				565849A2220A2F98002CDAC3 /* BarCodeViewController.swift */,
+				562A5822229DEA1800322B12 /* ConfiguracionTableViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		7EEE250C21E81662006DB7E6 /* Singleton */ = {
+			isa = PBXGroup;
+			children = (
+				7EEE250D21E81672006DB7E6 /* SharedData.swift */,
+				56642B3B21F6307400456173 /* NetworkHelper.swift */,
+			);
+			path = Singleton;
+			sourceTree = "<group>";
+		};
+		DE08817C457E70DD8ABD6F76 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1F77C8A0A94879BE08954EAB /* Pods_EncuestaSatisfaccion.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7E3AC84821E7F9BA00D13A14 /* EncuestaSatisfaccion */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7E3AC85E21E7F9BC00D13A14 /* Build configuration list for PBXNativeTarget "EncuestaSatisfaccion" */;
+			buildPhases = (
+				CEB5255A95CB9BB397D6186F /* [CP] Check Pods Manifest.lock */,
+				7E3AC84521E7F9BA00D13A14 /* Sources */,
+				7E3AC84621E7F9BA00D13A14 /* Frameworks */,
+				7E3AC84721E7F9BA00D13A14 /* Resources */,
+				18BA955DFE72CB85EBD9EED4 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EncuestaSatisfaccion;
+			productName = EncuestaSatisfaccion;
+			productReference = 7E3AC84921E7F9BA00D13A14 /* EncuestaSatisfaccion.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7E3AC84121E7F9BA00D13A14 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = Wansoft;
+				TargetAttributes = {
+					7E3AC84821E7F9BA00D13A14 = {
+						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = 7E3AC84421E7F9BA00D13A14 /* Build configuration list for PBXProject "EncuestaSatisfaccion" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7E3AC84021E7F9BA00D13A14;
+			productRefGroup = 7E3AC84A21E7F9BA00D13A14 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7E3AC84821E7F9BA00D13A14 /* EncuestaSatisfaccion */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7E3AC84721E7F9BA00D13A14 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				562A581D229D89AB00322B12 /* Graphik-Bold.ttf in Resources */,
+				7E3AC85A21E7F9BC00D13A14 /* LaunchScreen.storyboard in Resources */,
+				562A5821229D89AB00322B12 /* Graphik-Semibold.ttf in Resources */,
+				7E3AC85721E7F9BC00D13A14 /* Assets.xcassets in Resources */,
+				562A5820229D89AB00322B12 /* Graphik-Regular.ttf in Resources */,
+				7E3AC85221E7F9BA00D13A14 /* Main.storyboard in Resources */,
+				562A581F229D89AB00322B12 /* Graphik-Medium.ttf in Resources */,
+				562A581E229D89AB00322B12 /* Graphik-Light.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		18BA955DFE72CB85EBD9EED4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-EncuestaSatisfaccion/Pods-EncuestaSatisfaccion-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/CameraBackground/CameraBackground.framework",
+				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
+				"${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework",
+				"${BUILT_PRODUCTS_DIR}/EmailValidator/EmailValidator.framework",
+				"${BUILT_PRODUCTS_DIR}/KRActivityIndicatorView/KRActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/KRProgressHUD/KRProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/MTBBarcodeScanner/MTBBarcodeScanner.framework",
+				"${BUILT_PRODUCTS_DIR}/MiniLayout/MiniLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/MultiToggleButton/MultiToggleButton.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/PPBadgeViewSwift/PPBadgeViewSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/RSBarcodes_Swift/RSBarcodes_Swift.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
+				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CameraBackground.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cosmos.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EmailValidator.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KRActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KRProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MTBBarcodeScanner.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MiniLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MultiToggleButton.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PPBadgeViewSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RSBarcodes_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EncuestaSatisfaccion/Pods-EncuestaSatisfaccion-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CEB5255A95CB9BB397D6186F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EncuestaSatisfaccion-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7E3AC84521E7F9BA00D13A14 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E4B53E521E9156300B81C9C /* EncuestaRespuestas.swift in Sources */,
+				5659D47B21F7A32600595E09 /* DetallePendienteViewController.swift in Sources */,
+				5653F01421FF8CBD00C93ACC /* ResumenTableViewController.swift in Sources */,
+				7E73D3BC21E807F100F61334 /* PreguntaModel.swift in Sources */,
+				56AE035322036A9300157AD1 /* EnvioViewController.swift in Sources */,
+				562CFCD921F673DC00544D4C /* UIBarButtonItem+Badge.swift in Sources */,
+				5653F019220237D300C93ACC /* OpcionesPreguntaModel.swift in Sources */,
+				7E73D3BD21E807F100F61334 /* EncuestaModel.swift in Sources */,
+				568C0B9D21FA576D009F0B4D /* EncuestaTableViewCell.swift in Sources */,
+				56287754220DF1B8005BE1FF /* ResultadoEncuesta.swift in Sources */,
+				562E6C6621FB73C5005A1513 /* HomeViewController.swift in Sources */,
+				7E3AC84D21E7F9BA00D13A14 /* AppDelegate.swift in Sources */,
+				562CFCD521F6613100544D4C /* EncuestaBO.swift in Sources */,
+				56DEEEB321EFCAAE001481A7 /* EncuestasTableViewController.swift in Sources */,
+				565849A3220A2F98002CDAC3 /* BarCodeViewController.swift in Sources */,
+				562A5823229DEA1800322B12 /* ConfiguracionTableViewController.swift in Sources */,
+				5659D47D21F7CF5200595E09 /* MenuTableViewController.swift in Sources */,
+				5664A39621F7839900A5A233 /* Badge.swift in Sources */,
+				7EEE250E21E81672006DB7E6 /* SharedData.swift in Sources */,
+				7E3AC85521E7F9BA00D13A14 /* EncuestaSatisfaccion.xcdatamodeld in Sources */,
+				56642B3C21F6307400456173 /* NetworkHelper.swift in Sources */,
+				7E2123C521ED5FDA00AA06F4 /* SucursalModel.swift in Sources */,
+				56164CA52283265C005B11C8 /* EncuestaSeleccionadaModel.swift in Sources */,
+				566C623521F114FC005F394F /* LoginModel.swift in Sources */,
+				7EEE250B21E8161D006DB7E6 /* EncuestaViewController.swift in Sources */,
+				56287756220DF24E005BE1FF /* DetalleResultadoEncuesta.swift in Sources */,
+				5659D47921F79D6300595E09 /* PendientesTableViewController.swift in Sources */,
+				7E4B53E321E8F8E100B81C9C /* TipoPreguntaEnum.swift in Sources */,
+				5653F0172202064600C93ACC /* TipoPreguntaModel.swift in Sources */,
+				566C623721F12AE0005F394F /* RealmHelper.swift in Sources */,
+				7E73D3B821E807D800F61334 /* EncuestaManager.swift in Sources */,
+				7E2834BD21ED46A400DD1C36 /* LoginViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		7E3AC85021E7F9BA00D13A14 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7E3AC85121E7F9BA00D13A14 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		7E3AC85821E7F9BC00D13A14 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7E3AC85921E7F9BC00D13A14 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7E3AC85C21E7F9BC00D13A14 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		7E3AC85D21E7F9BC00D13A14 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7E3AC85F21E7F9BC00D13A14 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A297A480F5D1D28F0A66C883 /* Pods-EncuestaSatisfaccion.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JY7C4BS533;
+				INFOPLIST_FILE = EncuestaSatisfaccion/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wansoft.EncuestaSatisfaccion;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7E3AC86021E7F9BC00D13A14 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E58356E49D833311DB8C8FB3 /* Pods-EncuestaSatisfaccion.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JY7C4BS533;
+				INFOPLIST_FILE = EncuestaSatisfaccion/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wansoft.EncuestaSatisfaccion;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7E3AC84421E7F9BA00D13A14 /* Build configuration list for PBXProject "EncuestaSatisfaccion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7E3AC85C21E7F9BC00D13A14 /* Debug */,
+				7E3AC85D21E7F9BC00D13A14 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7E3AC85E21E7F9BC00D13A14 /* Build configuration list for PBXNativeTarget "EncuestaSatisfaccion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7E3AC85F21E7F9BC00D13A14 /* Debug */,
+				7E3AC86021E7F9BC00D13A14 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7E3AC85321E7F9BA00D13A14 /* EncuestaSatisfaccion.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7E3AC85421E7F9BA00D13A14 /* EncuestaSatisfaccion.xcdatamodel */,
+			);
+			currentVersion = 7E3AC85421E7F9BA00D13A14 /* EncuestaSatisfaccion.xcdatamodel */;
+			path = EncuestaSatisfaccion.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 7E3AC84121E7F9BA00D13A14 /* Project object */;
+}
