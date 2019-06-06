@@ -41,6 +41,8 @@ class ConfiguracionTableViewController: UITableViewController {
             SharedData.sharedInstance.ordenManual = true
             cell?.accessoryType = .checkmark
         }
+        
+        UserDefaults.standard.set(SharedData.sharedInstance.ordenManual, forKey: "ordenConfig")
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

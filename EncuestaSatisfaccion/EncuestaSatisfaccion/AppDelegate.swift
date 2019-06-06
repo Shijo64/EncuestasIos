@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let loginResult = RealmHelper.sharedInstance.getObject(type: LoginModel.self)
         let loginModel = loginResult as? LoginModel
+        SharedData.sharedInstance.ordenManual = UserDefaults.standard.bool(forKey: "ordenConfig")
         if(loginModel!.idSucursal == ""){
             self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "startNavigationController")
         }else{
