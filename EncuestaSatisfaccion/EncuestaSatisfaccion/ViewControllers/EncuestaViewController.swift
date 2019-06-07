@@ -203,10 +203,10 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
             starView.settings.fillMode = .full
             starView.settings.starSize = 65
             starView.settings.starMargin = 5
-            starView.settings.filledColor = UIColor.flatYellow()
-            starView.settings.emptyColor = UIColor.flatWhite()
-            starView.settings.emptyBorderColor = UIColor.flatYellow()
-            starView.settings.filledBorderColor = UIColor.flatWhite()
+            starView.settings.filledColor = UIColor.white
+            starView.settings.emptyColor = UIColor.darkGray
+            starView.settings.emptyBorderColor = UIColor.white
+            starView.settings.filledBorderColor = UIColor.white
             starView.settings.emptyBorderWidth = 2.0
             starView.settings.filledBorderWidth = 2.0
             starView.didFinishTouchingCosmos = { rating in
@@ -230,7 +230,7 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
             picker.layer.cornerRadius = 15
             picker.delegate = self
             picker.dataSource = self
-            picker.backgroundColor = UIColor.flatWhite()
+            picker.backgroundColor = UIColor.clear
             
             if (respuestaGuardada.respuesta != ""){
                 let index = opciones.firstIndex(where: {$0.Id == Int(respuestaGuardada.respuesta)})
@@ -253,8 +253,8 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
             }
             let segment = UISegmentedControl(items: segmentoData)
             segment.frame = CGRect(x: 0, y: 0, width: self.controlView.frame.width, height: self.controlView.frame.height * 0.20)
-            segment.backgroundColor = UIColor.flatWhite()
-            segment.tintColor = UIColor.flatSkyBlue()
+            segment.backgroundColor = UIColor.darkGray
+            segment.tintColor = UIColor.flatWhite()
             segment.addTarget(self, action: #selector(self.opcionSeleccionada(sender:)), for: .valueChanged)
 
             if  respuestaGuardada.respuesta != ""{
@@ -318,6 +318,9 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
             self.guardarRespuesta(respuesta: respuestaGuardada)
             
             opcionMultipleTableView.register(UITableViewCell.self, forCellReuseIdentifier: "OpcionMultipleCell")
+            opcionMultipleTableView.backgroundColor = UIColor.clear
+            opcionMultipleTableView.separatorStyle = .singleLineEtched
+            opcionMultipleTableView.tableFooterView = UIView(frame: CGRect.zero)
             self.controlView.addSubview(opcionMultipleTableView)
         break
         case TipoPreguntaEnum.comentarios.rawValue	:
@@ -409,6 +412,19 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
         return 1
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = UIColor.clear
+        //cell.alpha = 0.75
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let opciones = self.getOpciones()
         return opciones.count
@@ -416,6 +432,7 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "OpcionMultipleCell")
+        cell?.tintColor = UIColor.white
         cell?.selectionStyle = .none
         let opciones = self.getOpciones()
         let opcion = opciones[indexPath.row]
@@ -430,6 +447,7 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
         }
         
         cell!.textLabel?.text = opcion.Description
+        cell?.textLabel?.textColor = UIColor.white
         return cell!
     }
     
@@ -582,7 +600,7 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return (self.dataSet?.AnswerOptions.count)!
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         var opciones:[OpcionesPreguntaModel] = []
         for AnswerOption in (self.dataSet?.AnswerOptions)!{
@@ -616,7 +634,7 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
             label = UILabel()
         }
         
-        label.textColor = UIColor.black
+        label.textColor = UIColor.white
         label.textAlignment = .center
         label.font = UIFont(name: "Graphik-Light.ttf", size: 16)
         

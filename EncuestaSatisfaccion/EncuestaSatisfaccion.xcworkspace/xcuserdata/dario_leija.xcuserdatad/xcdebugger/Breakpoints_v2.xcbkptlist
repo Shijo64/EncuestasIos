@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EncuestaSatisfaccion/ViewControllers/EncuestaViewController.swift"
-            timestampString = "580926756.900587"
+            timestampString = "581624887.832971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "84"
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EncuestaSatisfaccion/AppDelegate.swift"
-            timestampString = "581528955.24325"
+            filePath = "EncuestaSatisfaccion/ViewControllers/EncuestaViewController.swift"
+            timestampString = "581624887.8574719"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
-            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
+            startingLineNumber = "628"
+            endingLineNumber = "628"
+            landmarkName = "pickerView(_:viewForRow:forComponent:reusing:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

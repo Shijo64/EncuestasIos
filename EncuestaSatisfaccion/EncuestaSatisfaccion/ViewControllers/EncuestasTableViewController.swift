@@ -45,6 +45,10 @@ class EncuestasTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         //self.encuestas = SharedData.sharedInstance.sucursal?.Encuestas
+        let backgroundImage = UIImage(named: "restaurant-desk")
+        let imageView = UIImageView(image: backgroundImage)
+        imageView.contentMode = .scaleToFill
+        self.tableView.backgroundView = imageView
         let data = RealmHelper.sharedInstance.getObjects(type: EncuestaModel.self)
         self.encuestas = (data as! [EncuestaModel])
         self.tableView.reloadData()
@@ -108,6 +112,10 @@ class EncuestasTableViewController: UITableViewController {
 
     
     // MARK: - Table view data source
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = UIColor.darkGray
+        cell.alpha = 0.75
+    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -142,7 +150,7 @@ class EncuestasTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 5
+        return 0
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

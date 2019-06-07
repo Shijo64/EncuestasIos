@@ -32,6 +32,11 @@ class ResumenTableViewController: UITableViewController {
         for pregunta in (self.encuesta?.Questions)!{
             self.preguntas.append(pregunta)
         }
+        
+        let backgroundImage = UIImage(named: "restaurant-desk")
+        let imageView = UIImageView(image: backgroundImage)
+        imageView.contentMode = .scaleToFill
+        self.tableView.backgroundView = imageView
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -91,7 +96,12 @@ class ResumenTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = UIColor.darkGray
+        cell.alpha = 0.75
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return (self.respuestas?.count)!
@@ -114,6 +124,7 @@ class ResumenTableViewController: UITableViewController {
             opciones.append(opcion)
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: "resumenCell", for: indexPath)
+        cell.textLabel?.textColor = .white
         let respuesta = self.respuestas![indexPath.section]
         if(opciones.count > 0){
             if(respuesta.arrayRespuestas.count > 0){
@@ -130,20 +141,25 @@ class ResumenTableViewController: UITableViewController {
 
         return cell
     }
-
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 30))
+        view.backgroundColor = UIColor.darkGray
+        view.alpha = 0.75
         if(self.encuestaEnviar?.Id != nil){
             let pregunta = self.preguntas[section]
-            return pregunta.Description
-        }else{
-            return ""
+            let textfield = UITextField(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
+            textfield.text = pregunta.Description
+            textfield.textColor = UIColor.white
+            view.addSubview(textfield)
         }
+        return view
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if(section == (self.respuestas?.count)! - 1){
-            let footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 80))
-            let sendButton = UIButton(frame: CGRect(x: 0, y: 0, width: footerView.frame.width * 0.80, height:footerView.frame.height))
+            let footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 60))
+            let sendButton = UIButton(frame: CGRect(x: 0, y: 0, width: footerView.frame.width * 0.80, height:60))
             sendButton.center = footerView.center
             sendButton.backgroundColor = UIColor.flatSkyBlue()
             sendButton.layer.cornerRadius = 15

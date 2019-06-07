@@ -24,6 +24,10 @@ class MenuTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.dismissKeyboard()
+        let backgroundImage = UIImage(named: "restaurant-desk")
+        let imageView = UIImageView(image: backgroundImage)
+        imageView.contentMode = .scaleToFill
+        self.tableView.backgroundView = imageView
     }
 
     func limpiarBaseDatos(){
@@ -49,7 +53,12 @@ class MenuTableViewController: UITableViewController {
     }*/
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10
+        return 0
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = UIColor.darkGray
+        cell.alpha = 0.75
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -57,13 +66,17 @@ class MenuTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if(indexPath.section == 0 && indexPath.row == 0){
+        if(indexPath.row == 0){
             let controller = UIApplication.shared.keyWindow?.rootViewController as! UINavigationController
             dismiss(animated: true, completion: {
                 controller.popToRootViewController(animated: true)
             })
         }
-        else if(indexPath.section == 2 && indexPath.row == 0){
+        else if(indexPath.row == 1){
+            let controller = self.storyboard?.instantiateViewController(withIdentifier: "encuestasController")
+            self.navigationController?.pushViewController(controller!, animated: true)
+        }
+        else if(indexPath.row == 2){
             self.dismiss(animated: true, completion: {
                 let controller = self.storyboard?.instantiateViewController(withIdentifier: "startNavigationController")
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -72,11 +85,11 @@ class MenuTableViewController: UITableViewController {
                 self.limpiarBaseDatos()
             })
         }
-        else if(indexPath.section == 3 && indexPath.row == 0){
+        else if(indexPath.row == 3){
             let controller = self.storyboard?.instantiateViewController(withIdentifier: "configuracionController")
             self.navigationController?.pushViewController(controller!, animated: true)
         }
-        else if(indexPath.section == 4 && indexPath.row == 0){
+        else if(indexPath.row == 4){
             let controller = self.storyboard?.instantiateViewController(withIdentifier: "acercaDeController")
             self.navigationController?.pushViewController(controller!, animated: true)
         }

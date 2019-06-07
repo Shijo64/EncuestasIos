@@ -22,6 +22,7 @@ class BarCodeViewController: UIViewController {
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var codeView: UIView!
+    @IBOutlet weak var backImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,12 +35,13 @@ class BarCodeViewController: UIViewController {
         self.anotherButton.layer.cornerRadius = self.anotherButton.frame.width/2
         self.anotherButton.addTarget(self, action: #selector(self.restartScan), for: .touchUpInside)
         self.anotherButton.isHidden = true
+        self.backgroundView.backgroundColor = UIColor(patternImage: UIImage(named: "restaurant-desk")!)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         self.scanCode()
         self.makeTransparentRectangle(view: self.backgroundView, childView:self.cameraView)
-        //self.makeTransparentRectangle(view: self.backgroundView, childView: self.codeView)
+        //self.makeTransparentRectangle(view: self.backImageView, childView: self.cameraView)
     }
     
     @objc func scanCode(){
