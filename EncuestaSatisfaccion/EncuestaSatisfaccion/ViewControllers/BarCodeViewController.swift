@@ -60,8 +60,6 @@ class BarCodeViewController: UIViewController {
                                 //self.codigoLabel.text = stringValue
                                 self.anotherButton.center = preView.center
                                 self.anotherButton.isHidden = false
-                                //self.aceptarButton.isHidden = false
-                                //preView.addSubview(self.anotherButton)
                                 let alert = UIAlertController(title: "Exito", message: "el codigo escaneado es: \(stringValue)", preferredStyle: .alert)
                                 let aceptar = UIAlertAction(title: "Aceptar", style: .default, handler: {(action) in
                                     self.aceptarCodigo(codigo:stringValue)

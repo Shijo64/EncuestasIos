@@ -71,9 +71,16 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidAppear(_ animated: Bool) {
         //print("Prueba")
         if(self.resumenPop){
-            self.atrasButton.isHidden = false
-            let mult:CGFloat = 0.48
-            self.siguienteButtonWidthConstraint = self.siguienteButtonWidthConstraint.setMultiplier(multiplier: mult)
+            if(self.currentIndex == 0){
+                self.navigationItem.setHidesBackButton(false, animated: true)
+                self.atrasButton.isHidden = true
+                let mult:CGFloat = 1.0
+                self.siguienteButtonWidthConstraint = self.siguienteButtonWidthConstraint.setMultiplier(multiplier: mult)
+            }else{
+                self.atrasButton.isHidden = false
+                let mult:CGFloat = 0.48
+                self.siguienteButtonWidthConstraint = self.siguienteButtonWidthConstraint.setMultiplier(multiplier: mult)
+            }
         }else{
             self.atrasButton.isHidden = true
             let mult:CGFloat = 1.0

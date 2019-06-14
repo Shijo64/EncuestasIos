@@ -52,6 +52,7 @@ class ResumenTableViewController: UITableViewController {
         encuestaBO.nombreEncuesta = (self.encuesta?.Name)!
         encuestaBO.CodigoEncuesta = (self.encuesta?.Name)!
         encuestaBO.Orden = SharedData.sharedInstance.numeroOrden
+        encuestaBO.FechaOrden = SharedData.sharedInstance.fechaOrden
         
         var respuestasEnviar:[EncuestaRespuestas] = []
         for respuesta in self.respuestas!{

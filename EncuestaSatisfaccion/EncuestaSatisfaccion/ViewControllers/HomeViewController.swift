@@ -9,12 +9,15 @@
 import UIKit
 import SideMenu
 
-class HomeViewController: UIViewController, UITextFieldDelegate, BarcodeDelegate, ResumenDelegate {
+class HomeViewController: UIViewController, UITextFieldDelegate, BarcodeDelegate, ResumenDelegate, FechaDelegate {
 
     @IBOutlet weak var tipoEncuestaLabel: UILabel!
     @IBOutlet weak var iniciarButton: UIButton!
     @IBOutlet weak var numeroOrdenTextfield: UITextField!
     @IBOutlet weak var codigoBarrasButton: UIButton!
+    @IBOutlet weak var fechaOrdenLabel: UILabel!
+    @IBOutlet weak var fechaOrdenView: UIView!
+    
     
     var encuesta:EncuestaModel?
     var encuestaSeleccionada:Bool = false
@@ -24,6 +27,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate, BarcodeDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.numeroOrdenTextfield.text = ""
         
         let logo = UIImage(named: "logo-completo")
         let imageView = UIImageView(image:logo)
@@ -37,9 +41,19 @@ class HomeViewController: UIViewController, UITextFieldDelegate, BarcodeDelegate
         tap.cancelsTouchesInView = false
         self.numeroOrdenTextfield.delegate = self
         self.view.addGestureRecognizer(tap)
+        self.fechaOrdenView.layer.cornerRadius = 5
+        self.fechaOrdenView.layer.masksToBounds = true
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.elejirFecha))
+        self.fechaOrdenView.addGestureRecognizer(tapRecognizer)
+        
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        let dateString = dateFormatter.string(from: date)
+        self.fechaOrdenLabel.text = dateString
     }
     override func viewWillAppear(_ animated: Bool) {
-        self.numeroOrdenTextfield.text = ""
         if(SharedData.sharedInstance.ordenManual){
             self.numeroOrdenTextfield.isUserInteractionEnabled = true
         }else{
@@ -99,6 +113,10 @@ class HomeViewController: UIViewController, UITextFieldDelegate, BarcodeDelegate
             self.errorHighlightTextField(textField: self.numeroOrdenTextfield)
         }else{
             SharedData.sharedInstance.numeroOrden = Int(self.numeroOrdenTextfield.text!)!
+            let formatter = DateFormatter()
+            formatter.dateStyle = .short
+            formatter.timeStyle = .none
+            SharedData.sharedInstance.fechaOrden = formatter.date(from: self.fechaOrdenLabel.text!)!
             SharedData.sharedInstance.showProgress()
             let controller = self.storyboard?.instantiateViewController(withIdentifier: "EncuestaController") as! EncuestaViewController
             controller.encuesta = self.encuesta
@@ -114,7 +132,35 @@ class HomeViewController: UIViewController, UITextFieldDelegate, BarcodeDelegate
     
     //MARK: Barcode Delegate
     func sendCodigo(codigo: String) {
-        self.numeroOrdenTextfield.text = codigo
+        let code = codigo
+        var index = code.index(code.startIndex, offsetBy: 1)
+        var endIndex = code.index(code.endIndex, offsetBy: -1)
+        let newCode = code[index..<endIndex]
+        index = newCode.index(newCode.startIndex, offsetBy: newCode.count-3)
+        let numeroOrden = newCode[index...]
+        self.numeroOrdenTextfield.text = String(numeroOrden)
+        let fecha = newCode[..<index]
+        endIndex = fecha.index(fecha.endIndex, offsetBy: -4)
+        let diaMes = fecha[..<endIndex]
+        let año = fecha[endIndex...]
+        index = diaMes.index(diaMes.startIndex, offsetBy: 2)
+        endIndex = diaMes.index(diaMes.endIndex, offsetBy: -2)
+        let mes = diaMes[index...]
+        let dia = diaMes[..<endIndex]
+        
+        let calendar = Calendar.current
+        var components = DateComponents()
+        components.day = Int(dia)
+        components.month = Int(mes)
+        components.year = Int(año)
+        
+        let date = calendar.date(from: components)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        let dateString = dateFormatter.string(from: date!)
+        self.fechaOrdenLabel.text = dateString
+        
         self.removeErrorHighlightTextField(textField: self.numeroOrdenTextfield)
     }
     
@@ -161,5 +207,31 @@ class HomeViewController: UIViewController, UITextFieldDelegate, BarcodeDelegate
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    func seleccionarFecha(fecha: Date) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        let dateString = dateFormatter.string(from: fecha)
+        self.fechaOrdenLabel.text = dateString
+    }
+    
+    @objc func elejirFecha(){
+        /*let view = UIView(frame: CGRect(x: 10, y: 150, width: self.view.frame.width - 20, height: self.view.frame.height * 0.5))
+        view.backgroundColor = UIColor(white: 1, alpha: 0.95)
+        self.view.addSubview(view)
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width - 10, height: view.frame.height * 0.4))
+        label.text = "Selecciona la fecha de la orden: "
+        view.addSubview(label)
+        let picker = UIDatePicker(frame: CGRect(x: 0, y: label.frame.height + 15, width: view.frame.width - 20, height: view.frame.height * 0.5))
+        view.addSubview(picker)*/
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .none
+        let fecha = formatter.date(from: self.fechaOrdenLabel.text!)!
+        let controller = self.storyboard?.instantiateViewController(withIdentifier: "fechaController") as! OrderDateViewController
+        controller.delegate = self
+        controller.currentDate = fecha
+        self.present(controller, animated: true, completion: nil)
+    }
 }

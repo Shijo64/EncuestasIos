@@ -18,6 +18,7 @@ class SharedData{
     var password:String = ""
     var font = UIFont(name: "Graphik-Regular.ttf", size: UIFont.systemFontSize)
     var ordenManual = false
+    var fechaOrden = Date()
     
     static let sharedInstance = SharedData()
     

@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (4.8.1)
+  - Alamofire (4.8.2)
   - AlamofireObjectMapper (5.2.0):
     - Alamofire (~> 4.7)
     - ObjectMapper (~> 3.4)
@@ -15,20 +15,20 @@ PODS:
   - ChameleonFramework/Default (2.1.0)
   - Cosmos (18.0.1)
   - EmailValidator (1.0.2)
-  - KRActivityIndicatorView (3.0.0)
-  - KRProgressHUD (3.4.0):
-    - KRActivityIndicatorView (= 3.0.0)
-  - MiniLayout (1.4.0)
-  - MTBBarcodeScanner (5.0.8)
+  - KRActivityIndicatorView (3.0.2)
+  - KRProgressHUD (3.4.1):
+    - KRActivityIndicatorView (= 3.0.2)
+  - MiniLayout (1.4.1)
+  - MTBBarcodeScanner (5.0.11)
   - MultiToggleButton (1.8.0)
-  - ObjectMapper (3.4.2)
-  - PPBadgeViewSwift (2.2.2)
-  - ReachabilitySwift (4.3.0)
-  - Realm (3.13.1):
-    - Realm/Headers (= 3.13.1)
-  - Realm/Headers (3.13.1)
-  - RealmSwift (3.13.1):
-    - Realm (= 3.13.1)
+  - ObjectMapper (3.5.0)
+  - PPBadgeViewSwift (3.1.0)
+  - ReachabilitySwift (4.3.1)
+  - Realm (3.16.1):
+    - Realm/Headers (= 3.16.1)
+  - Realm/Headers (3.16.1)
+  - RealmSwift (3.16.1):
+    - Realm (= 3.16.1)
   - RSBarcodes_Swift (4.2.1)
   - SideMenu (5.0.3)
   - "UITextView+Placeholder (1.2.1)"
@@ -72,22 +72,22 @@ SPEC REPOS:
     - "UITextView+Placeholder"
 
 SPEC CHECKSUMS:
-  Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   AlamofireObjectMapper: 92b6ce2423a9d159e686f6a1d514a009bf903ddc
   CameraBackground: 0a67e3c5491fe47c5c8c56b2044816604cb241c4
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   Cosmos: 7dfaa3f52584ca5f94ab74b5c2e264019cc9f7f5
   EmailValidator: 366dc0ddedcc457ae14d269fa056416a6730d6ea
-  KRActivityIndicatorView: c414000730a6f4969eeb354bee4f2aebc89c2c2e
-  KRProgressHUD: 79c8703f82179fe34b3602f10b30726f887983fa
-  MiniLayout: e35331ce9ab50a4111c3f91deca158834f86d9e7
-  MTBBarcodeScanner: 5b97f10a037e2560ff104da413343c5ce9413911
+  KRActivityIndicatorView: a2022d5d3e366207d2690f6bcc550f83aa91241b
+  KRProgressHUD: 115363b48feb530ab1f36c4146ed22e779e0f5aa
+  MiniLayout: bd42e3763700c3002f39ff3b36dc8a027ea5078a
+  MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
   MultiToggleButton: eca1625dab98b028e878c18c624eee05cac83c96
-  ObjectMapper: 0d4402610f4e468903ae64629eec4784531e5c51
-  PPBadgeViewSwift: 96a41852df7437e9d948565a1bc894f757c29933
-  ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
-  Realm: 50071da38fe079e0735e47c9f2eae738c68c5996
-  RealmSwift: 8a1e6a02b7a08cd17a31e3115143fb69fe5f3fb9
+  ObjectMapper: 078b564ed25c6578b62588e306bf1da3924636d4
+  PPBadgeViewSwift: 18a219a9897f418342c22dd1a54f7b18ac56546b
+  ReachabilitySwift: 4032e2f59586e11e3b0ebe15b167abdd587a388b
+  Realm: 601cacc51d8be3b17a377ef787be0f6ee0e76cf1
+  RealmSwift: 486f2e09d5a8ccff63ed66e48d0846b111deb5e5
   RSBarcodes_Swift: c58d107e6d2149cc34a23f02828d400dbb708101
   SideMenu: 1dcaabce84538c53325c287f7fe62999379a641c
   "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909

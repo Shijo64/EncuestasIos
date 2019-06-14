@@ -18,6 +18,7 @@ class EncuestaBO: Object, Mappable {
     @objc dynamic var EncuestaId = 0
     @objc dynamic var nombreEncuesta = ""
     @objc dynamic var FechaRegistro = Date()
+    @objc dynamic var FechaOrden = Date()
     var respuestas:[EncuestaRespuestas] = []
     
     override static func primaryKey() -> String? {
@@ -55,6 +56,7 @@ class EncuestaBO: Object, Mappable {
         self.FechaOperacion <- (map["FechaOperacion"], DateTransform())
         self.EncuestaId <- map["EncuestaId"]
         self.FechaRegistro <- (map["FechaRegistro"], DateTransform())
+        self.FechaOrden <- (map["FechaOrden"], DateTransform())
         self.respuestas <- map["Respuestas"]
     }
 }
