@@ -34,13 +34,13 @@
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Texto" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0l-dh-c5W">
-                                <rect key="frame" x="10" y="71" width="300" height="27"/>
+                                <rect key="frame" x="10" y="71" width="300" height="23"/>
                                 <fontDescription key="fontDescription" name="Graphik-Regular" family="Graphik" pointSize="23"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PiP-pc-mqC">
-                                <rect key="frame" x="16" y="113" width="288" height="200"/>
+                                <rect key="frame" x="16" y="109" width="288" height="200"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="gHp-vH-RBc"/>
@@ -235,19 +235,19 @@
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Introduce por favor el código de sucursal:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lcZ-Ap-wa7">
-                                <rect key="frame" x="10" y="74" width="300" height="40"/>
+                                <rect key="frame" x="10" y="74" width="300" height="34"/>
                                 <fontDescription key="fontDescription" name="Graphik-Regular" family="Graphik" pointSize="17"/>
                                 <color key="textColor" red="0.19215686269999999" green="0.68627450980000004" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Código de sucursal:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oP2-4Z-nMz">
-                                <rect key="frame" x="10" y="124" width="300" height="40"/>
+                                <rect key="frame" x="10" y="118" width="300" height="40"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Graphik-Light" family="Graphik" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="continue"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ivn-O0-a6p">
-                                <rect key="frame" x="70" y="233.5" width="180" height="57"/>
+                                <rect key="frame" x="70" y="227.5" width="180" height="57"/>
                                 <color key="backgroundColor" red="0.2864078283" green="0.73970872160000001" blue="0.92788296940000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Graphik-Regular" family="Graphik" pointSize="22"/>
                                 <state key="normal" title="Enviar">
@@ -258,7 +258,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Contraseña:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aqJ-JK-nG6">
-                                <rect key="frame" x="10" y="174" width="300" height="39.5"/>
+                                <rect key="frame" x="10" y="168" width="300" height="39.5"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Graphik-Light" family="Graphik" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done" textContentType="password"/>
@@ -313,7 +313,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wansoft" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kQJ-QR-hyt">
-                                <rect key="frame" x="20" y="40" width="280" height="28"/>
+                                <rect key="frame" x="20" y="40" width="280" height="33"/>
                                 <fontDescription key="fontDescription" name="Graphik-Regular" family="Graphik" pointSize="28"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -349,13 +349,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Número de orden manual" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SEB-iE-X1m">
-                                            <rect key="frame" x="5" y="5" width="136.5" height="14"/>
+                                            <rect key="frame" x="5" y="5" width="143.5" height="12"/>
                                             <fontDescription key="fontDescription" name="Graphik-Regular" family="Graphik" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Al seleccionar esta opción se habilita poder agregar el número de orden de forma manual" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Woj-Ud-XrA">
-                                            <rect key="frame" x="5" y="24" width="250" height="28"/>
+                                            <rect key="frame" x="5" y="22" width="250" height="24"/>
                                             <fontDescription key="fontDescription" name="Graphik-Light" family="Graphik" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -587,13 +587,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Encuesta Pendiente" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uHU-ig-1jk">
-                                <rect key="frame" x="10" y="30" width="300" height="26"/>
+                                <rect key="frame" x="10" y="30" width="300" height="22"/>
                                 <fontDescription key="fontDescription" name="Graphik-Regular" family="Graphik" pointSize="22"/>
                                 <color key="textColor" red="0.2864078283" green="0.73970872160000001" blue="0.92788296940000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EZF-iH-rDb">
-                                <rect key="frame" x="10" y="66" width="300" height="415"/>
+                                <rect key="frame" x="10" y="62" width="300" height="419"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="respuestaCell" rowHeight="70" id="moX-bo-o4q">
@@ -652,33 +652,33 @@
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Introduce el número de orden:" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xff-JI-bpt">
-                                <rect key="frame" x="10" y="120" width="300" height="26"/>
+                                <rect key="frame" x="10" y="116" width="300" height="44"/>
                                 <fontDescription key="fontDescription" name="Graphik-Regular" family="Graphik" pointSize="22"/>
                                 <color key="textColor" red="0.2864078283" green="0.73970872160000001" blue="0.92788296940000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Numero de orden:" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0hr-86-2cT">
-                                <rect key="frame" x="10" y="156" width="300" height="30"/>
+                                <rect key="frame" x="10" y="170" width="300" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Graphik-Light" family="Graphik" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tipo de Encuesta" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Kr-ku-ek6">
-                                <rect key="frame" x="10" y="84" width="300" height="26"/>
+                                <rect key="frame" x="10" y="84" width="300" height="22"/>
                                 <fontDescription key="fontDescription" name="Graphik-Regular" family="Graphik" pointSize="22"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Introduce la fecha de la orden:" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="keg-V0-0rQ">
-                                <rect key="frame" x="10" y="196" width="300" height="26"/>
+                                <rect key="frame" x="10" y="210" width="300" height="44"/>
                                 <fontDescription key="fontDescription" name="Graphik-Regular" family="Graphik" pointSize="22"/>
                                 <color key="textColor" red="0.28873974084854126" green="0.74316960573196411" blue="0.92790192365646362" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uv7-Ny-QDL">
-                                <rect key="frame" x="10" y="237" width="300" height="30"/>
+                                <rect key="frame" x="10" y="269" width="300" height="30"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fecha:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tgg-RT-1t2">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fecha de orden:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tgg-RT-1t2">
                                         <rect key="frame" x="10" y="0.0" width="280" height="30"/>
                                         <fontDescription key="fontDescription" name="Graphik-Light" family="Graphik" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -694,7 +694,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DML-uv-8G9">
-                                <rect key="frame" x="77" y="282" width="166" height="57"/>
+                                <rect key="frame" x="74.5" y="314" width="171" height="57"/>
                                 <color key="backgroundColor" red="0.2864078283" green="0.73970872160000001" blue="0.92788296940000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Graphik-Regular" family="Graphik" pointSize="23"/>
                                 <state key="normal" title="Iniciar">
@@ -705,7 +705,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XjF-j1-RIU">
-                                <rect key="frame" x="77" y="354" width="166" height="56.5"/>
+                                <rect key="frame" x="74.5" y="386" width="171" height="56.5"/>
                                 <color key="backgroundColor" red="0.2864078283" green="0.73970872160000001" blue="0.92788296940000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Graphik-Regular" family="Graphik" pointSize="21"/>
                                 <state key="normal" title="Código de Barras">
