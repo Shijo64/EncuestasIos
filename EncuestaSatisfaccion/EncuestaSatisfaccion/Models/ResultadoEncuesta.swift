@@ -17,6 +17,7 @@ class ResultadoEncuesta: NSObject, Mappable {
     var EncuestaId = 0
     var nombreEncuesta = ""
     var FechaRegistro = Date()
+    var FechaOrden = Date()
     var respuestas:[DetalleResultadoEncuesta] = []
     
     required convenience init?(map: Map) {
@@ -32,6 +33,7 @@ class ResultadoEncuesta: NSObject, Mappable {
         self.FechaOperacion <- (map["OperationDate"], DateFormatterTransform(dateFormatter: dateFormatter))
         self.EncuestaId <- map["SurveyId"]
         self.FechaRegistro <- (map["RegistrationDate"], DateFormatterTransform(dateFormatter: dateFormatter))
+        self.FechaOrden <- (map["OrderDate"], DateFormatterTransform(dateFormatter: dateFormatter))
         self.respuestas <- map["SurveyDetailResultList"]
     }
 }

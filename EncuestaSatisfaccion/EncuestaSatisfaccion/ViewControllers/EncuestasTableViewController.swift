@@ -96,7 +96,7 @@ class EncuestasTableViewController: UITableViewController {
             self.isTimerRunning = false
             let data = RealmHelper.sharedInstance.getObjects(type: EncuestaBO.self)
             self.encuestasPendientes = (data as! [EncuestaBO])
-            /*if(((self.encuestasPendientes?.count)!) > 0){
+            if(((self.encuestasPendientes?.count)!) > 0){
                 let manager = EncuestaManager()
                 for encuesta in self.encuestasPendientes!{
                     let predicate = "idEncuestaBO = \(encuesta.Id)"
@@ -106,7 +106,7 @@ class EncuestasTableViewController: UITableViewController {
                     }
                 }
                 RealmHelper.sharedInstance.deleteObjects(objects: self.encuestasPendientes!)
-            }*/
+            }
         }
     }
 

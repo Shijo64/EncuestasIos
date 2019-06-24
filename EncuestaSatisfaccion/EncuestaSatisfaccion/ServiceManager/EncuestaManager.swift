@@ -61,6 +61,7 @@ public class EncuestaManager{
         encuestaEnviar.EncuestaId = encuesta.EncuestaId
         encuestaEnviar.FechaOperacion = encuesta.FechaOperacion
         encuestaEnviar.FechaRegistro = encuesta.FechaRegistro
+        encuestaEnviar.FechaOrden = encuesta.FechaOrden
         encuestaEnviar.nombreEncuesta = encuesta.nombreEncuesta
         encuestaEnviar.Orden = encuesta.Orden
         var respuestasEnviar:[DetalleResultadoEncuesta] = []

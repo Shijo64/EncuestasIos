@@ -52,6 +52,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate, BarcodeDelegate
         dateFormatter.timeStyle = .none
         let dateString = dateFormatter.string(from: date)
         self.fechaOrdenLabel.text = dateString
+        SharedData.sharedInstance.fechaOrden = date
     }
     override func viewWillAppear(_ animated: Bool) {
         if(SharedData.sharedInstance.ordenManual){
