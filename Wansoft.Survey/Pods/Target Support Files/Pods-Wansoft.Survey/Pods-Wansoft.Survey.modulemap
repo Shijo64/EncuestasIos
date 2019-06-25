@@ -1,0 +1,6 @@
+framework module Pods_Wansoft_Survey {
+  umbrella header "Pods-Wansoft.Survey-umbrella.h"
+
+  export *
+  module * { export * }
+}
