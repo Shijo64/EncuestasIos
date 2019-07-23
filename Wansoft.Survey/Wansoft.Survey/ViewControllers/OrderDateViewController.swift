@@ -12,6 +12,7 @@ class OrderDateViewController: UIViewController {
 
     @IBOutlet weak var dateView: UIView!
     @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var atrasButton: UIButton!
     
     var delegate:FechaDelegate?
     var currentDate = Date()
@@ -23,6 +24,12 @@ class OrderDateViewController: UIViewController {
         
         self.datePicker.addTarget(self, action: #selector(self.datePickerValueChanged(_:)), for: .valueChanged)
         self.datePicker.date = self.currentDate
+        self.atrasButton.layer.cornerRadius = 10
+        self.atrasButton.layer.masksToBounds = true
+    }
+    
+    @IBAction func dismissWindow(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func datePickerValueChanged(_ sender:UIDatePicker){

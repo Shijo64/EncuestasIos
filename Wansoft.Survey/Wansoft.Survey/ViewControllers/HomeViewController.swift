@@ -57,8 +57,10 @@ class HomeViewController: UIViewController, UITextFieldDelegate, BarcodeDelegate
     override func viewWillAppear(_ animated: Bool) {
         if(SharedData.sharedInstance.ordenManual){
             self.numeroOrdenTextfield.isUserInteractionEnabled = true
+            self.fechaOrdenView.isUserInteractionEnabled = true
         }else{
             self.numeroOrdenTextfield.isUserInteractionEnabled = false
+            self.fechaOrdenView.isUserInteractionEnabled = false
         }
         self.buscarPendientes()
         self.getEncuestaDefault()

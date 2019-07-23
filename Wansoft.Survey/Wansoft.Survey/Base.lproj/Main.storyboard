@@ -651,7 +651,7 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Introduce el número de orden:" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xff-JI-bpt">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Introduce el número y fecha de orden:" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xff-JI-bpt">
                                 <rect key="frame" x="10" y="116" width="300" height="44"/>
                                 <fontDescription key="fontDescription" name="Graphik-Regular" family="Graphik" pointSize="22"/>
                                 <color key="textColor" red="0.2864078283" green="0.73970872160000001" blue="0.92788296940000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -695,7 +695,7 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DML-uv-8G9">
                                 <rect key="frame" x="74.5" y="314" width="171" height="57"/>
-                                <color key="backgroundColor" red="0.2864078283" green="0.73970872160000001" blue="0.92788296940000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.28738933801651001" green="0.73453003168106079" blue="0.92497700452804565" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Graphik-Regular" family="Graphik" pointSize="23"/>
                                 <state key="normal" title="Iniciar">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -868,17 +868,33 @@
                                     <constraint firstItem="f99-ia-hC5" firstAttribute="leading" secondItem="InX-VI-dcp" secondAttribute="leading" id="sp9-YH-CnN"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D9Z-Vl-BEZ">
+                                <rect key="frame" x="10" y="451" width="300" height="54"/>
+                                <color key="backgroundColor" red="0.28738933799999999" green="0.73453003169999997" blue="0.92497700449999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Graphik-Regular" family="Graphik" pointSize="22"/>
+                                <state key="normal" title="Atrás">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismissWindow:" destination="k4G-Vj-xsW" eventType="touchUpInside" id="3Cz-CI-nsA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="9Dc-n2-3t9" firstAttribute="trailing" secondItem="D9Z-Vl-BEZ" secondAttribute="trailing" constant="10" id="7xm-5f-onp"/>
+                            <constraint firstItem="D9Z-Vl-BEZ" firstAttribute="leading" secondItem="9Dc-n2-3t9" secondAttribute="leading" constant="10" id="As1-1K-K5T"/>
                             <constraint firstItem="InX-VI-dcp" firstAttribute="centerY" secondItem="9Dc-n2-3t9" secondAttribute="centerY" id="D0I-rF-xtE"/>
+                            <constraint firstItem="D9Z-Vl-BEZ" firstAttribute="height" secondItem="f99-ia-hC5" secondAttribute="height" multiplier="0.25" id="J6i-f2-jV4"/>
                             <constraint firstItem="InX-VI-dcp" firstAttribute="height" secondItem="N2o-Pz-w3I" secondAttribute="height" multiplier="0.5" id="M66-tG-kCK"/>
                             <constraint firstItem="InX-VI-dcp" firstAttribute="width" secondItem="N2o-Pz-w3I" secondAttribute="width" multiplier="0.9" id="XHc-IS-Jg3"/>
+                            <constraint firstItem="D9Z-Vl-BEZ" firstAttribute="top" secondItem="InX-VI-dcp" secondAttribute="bottom" constant="15" id="oU0-kH-dAo"/>
                             <constraint firstItem="InX-VI-dcp" firstAttribute="centerX" secondItem="9Dc-n2-3t9" secondAttribute="centerX" id="uWX-0u-WuL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9Dc-n2-3t9"/>
                     </view>
                     <connections>
+                        <outlet property="atrasButton" destination="D9Z-Vl-BEZ" id="dwG-Yk-lu7"/>
                         <outlet property="datePicker" destination="f99-ia-hC5" id="9jv-5m-ceh"/>
                         <outlet property="dateView" destination="InX-VI-dcp" id="7V8-H5-h53"/>
                     </connections>
