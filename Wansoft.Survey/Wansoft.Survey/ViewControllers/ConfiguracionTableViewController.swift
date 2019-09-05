@@ -29,30 +29,53 @@ class ConfiguracionTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return 2
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
-        if(SharedData.sharedInstance.ordenManual){
-            SharedData.sharedInstance.ordenManual = false
-            cell?.accessoryType = .none
+        if(indexPath.row == 0){
+            if(SharedData.sharedInstance.ordenManual){
+                SharedData.sharedInstance.ordenManual = false
+                cell?.accessoryType = .none
+            }else{
+                SharedData.sharedInstance.ordenManual = true
+                cell?.accessoryType = .checkmark
+            }
         }else{
-            SharedData.sharedInstance.ordenManual = true
-            cell?.accessoryType = .checkmark
+            if(SharedData.sharedInstance.barcodeActivo){
+                SharedData.sharedInstance.barcodeActivo = false
+                cell?.accessoryType = .none
+            }else{
+                SharedData.sharedInstance.barcodeActivo = true
+                cell?.accessoryType = .checkmark
+            }
         }
         
+        UserDefaults.standard.set("\(SharedData.sharedInstance.barcodeActivo)", forKey: "barcodeActivo")
         UserDefaults.standard.set(SharedData.sharedInstance.ordenManual, forKey: "ordenConfig")
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "nordenCell")
-        if(SharedData.sharedInstance.ordenManual){
-            cell?.accessoryType = .checkmark
+        if(indexPath.row == 0){
+            let cell = tableView.dequeueReusableCell(withIdentifier: "nordenCell")
+            if(SharedData.sharedInstance.ordenManual){
+                cell?.accessoryType = .checkmark
+            }else{
+                cell?.accessoryType = .none
+            }
+            
+            return cell!
         }else{
-            cell?.accessoryType = .none
+            let cell = tableView.dequeueReusableCell(withIdentifier: "codigoCell")
+            if(SharedData.sharedInstance.barcodeActivo){
+                cell?.accessoryType = .checkmark
+            }else{
+                cell?.accessoryType = .none
+            }
+            
+            return cell!
         }
-        return cell!
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

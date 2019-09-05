@@ -12,8 +12,9 @@ import Cosmos
 import UITextView_Placeholder
 import Reachability
 import EmailValidator
+import MaterialComponents
 
-class EncuestaViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource, ResumenDelegate {
+class EncuestaViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource, ResumenDelegate, FechaDelegate {
 
     var encuesta:EncuestaModel?
     var dataSet:PreguntaModel?
@@ -24,6 +25,13 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
     var resumenPop = false
     var currentControl = ""
     var currentTextfield:UITextField?
+    var currentDate = Date()
+    var errorPantalla = false
+    
+    var emailController:MDCTextInputControllerOutlined?
+    var celularController:MDCTextInputControllerOutlined?
+    var textoController:MDCTextInputControllerOutlined?
+    var commentController:MDCTextInputControllerUnderline?
     
     @IBOutlet weak var atrasButton: UIButton!
     @IBOutlet weak var siguienteButton: UIButton!
@@ -43,8 +51,8 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
         self.preguntaLabel.numberOfLines = 0
         self.preguntaLabel.sizeToFit()
         self.preguntaLabel.lineBreakMode = .byWordWrapping
-        self.atrasButton.layer.cornerRadius = 15
-        self.siguienteButton.layer.cornerRadius = 15
+        //self.atrasButton.layer.cornerRadius = 15
+        //self.siguienteButton.layer.cornerRadius = 15
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         tap.cancelsTouchesInView = false
@@ -73,18 +81,18 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
         if(self.resumenPop){
             if(self.currentIndex == 0){
                 self.navigationItem.setHidesBackButton(false, animated: true)
-                self.atrasButton.isHidden = true
-                let mult:CGFloat = 1.0
-                self.siguienteButtonWidthConstraint = self.siguienteButtonWidthConstraint.setMultiplier(multiplier: mult)
+                //self.atrasButton.isHidden = true
+                //let mult:CGFloat = 1.0
+                //self.siguienteButtonWidthConstraint = self.siguienteButtonWidthConstraint.setMultiplier(multiplier: mult)
             }else{
-                self.atrasButton.isHidden = false
-                let mult:CGFloat = 0.48
-                self.siguienteButtonWidthConstraint = self.siguienteButtonWidthConstraint.setMultiplier(multiplier: mult)
+                //self.atrasButton.isHidden = false
+                //let mult:CGFloat = 0.48
+                //self.siguienteButtonWidthConstraint = self.siguienteButtonWidthConstraint.setMultiplier(multiplier: mult)
             }
         }else{
-            self.atrasButton.isHidden = true
-            let mult:CGFloat = 1.0
-            self.siguienteButtonWidthConstraint = self.siguienteButtonWidthConstraint.setMultiplier(multiplier: mult)
+            //self.atrasButton.isHidden = true
+            //let mult:CGFloat = 1.0
+            //self.siguienteButtonWidthConstraint = self.siguienteButtonWidthConstraint.setMultiplier(multiplier: mult)
         }
         SharedData.sharedInstance.dismissProgressHud()
         self.getPreguntas()
@@ -105,12 +113,16 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
         self.preguntas = []
         if(((self.encuesta?.Questions)?.count)! > 0){
             for pregunta in (self.encuesta?.Questions)!{
-                self.preguntas.append(pregunta)
+                if(pregunta.Status == 1){
+                    self.preguntas.append(pregunta)
+                }
             }
             
             self.preguntas.sort {
                 $0.Order < $1.Order
             }
+            
+            self.preguntas = self.checkQuestionsAreValid(questions: self.preguntas)
         }else{
             self.siguienteButton.isHidden = true
             self.preguntaLabel.text = ""
@@ -121,34 +133,62 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-
-    @IBAction func siguientePregunta(_ sender: Any) {
-        if(self.currentControl == "textfield"){
-            if(self.currentTextfield?.layer.borderColor != UIColor.red.cgColor)
-            {
-                self.currentControl = ""
-                self.siguientePregunta(UIButton())
-            }
-        }else{
-            self.navigationItem.setHidesBackButton(true, animated: true)
-            self.atrasButton.isHidden = false
-            let mult:CGFloat = 0.48
-            self.siguienteButtonWidthConstraint = self.siguienteButtonWidthConstraint.setMultiplier(multiplier: mult)
-            if(self.currentIndex < self.preguntas.count - 1){
-                self.currentIndex = self.currentIndex + 1
-                self.dataSet = self.preguntas[self.currentIndex]
-                
-                self.setPregunta()
-                
-                if(self.currentIndex == self.preguntas.count - 1){
-                    self.siguienteButton.setTitle("Resumen", for: .normal)
+    func checkQuestionsAreValid(questions:[PreguntaModel]) -> [PreguntaModel]{
+        var newPreguntas = [PreguntaModel]()
+        for pregunta in questions{
+            if(pregunta.QuestionType?.Description == TipoPreguntaEnum.opcionMultiple.rawValue || pregunta.QuestionType?.Description == TipoPreguntaEnum.segmento.rawValue){
+                if(pregunta.AnswerOptions.count > 0){
+                    newPreguntas.append(pregunta)
                 }
             }else{
-                //Mostrar resumen
-                let controller = self.storyboard?.instantiateViewController(withIdentifier: "resumenController") as! ResumenTableViewController
-                controller.encuesta = self.encuesta
-                controller.delegate = self
-                self.navigationController?.pushViewController(controller, animated: true)
+                newPreguntas.append(pregunta)
+            }
+        }
+        
+        newPreguntas.sort {
+            $0.Order < $1.Order
+        }
+        
+        return newPreguntas
+    }
+
+    @IBAction func siguientePregunta(_ sender: Any) {
+        let respuestasGuardadas = SharedData.sharedInstance.respuestas
+        var respuesta = respuestasGuardadas.first(where: {$0.idPregunta == self.dataSet?.Id})
+        if(self.dataSet!.Optional == false && respuesta?.respuesta == ""){
+            let alert = UIAlertController(title: "Aviso", message: "Es necesario responder la pregunta para continuar", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "Aceptar", style: .default, handler: nil)
+            alert.addAction(alertAction)
+            self.present(alert, animated: true, completion: nil)
+        }else{
+            if(self.currentControl == "textfield"){
+                if(self.currentTextfield?.layer.borderColor != UIColor.red.cgColor)
+                {
+                    self.currentControl = ""
+                    self.siguientePregunta(UIButton())
+                }
+            }else{
+                self.navigationItem.setHidesBackButton(true, animated: true)
+                //self.atrasButton.isHidden = false
+                let mult:CGFloat = 0.48
+                //self.siguienteButtonWidthConstraint = self.siguienteButtonWidthConstraint.setMultiplier(multiplier: mult)
+                if(self.currentIndex < self.preguntas.count - 1 && self.errorPantalla == false){
+                    self.currentIndex = self.currentIndex + 1
+                    self.dataSet = self.preguntas[self.currentIndex]
+                    
+                    self.setPregunta()
+                    
+                    if(self.currentIndex == self.preguntas.count - 1){
+                        self.siguienteButton.setTitle("Resumen", for: .normal)
+                    }
+                }else if(self.errorPantalla == false){
+                    //Mostrar resumen
+                    let controller = self.storyboard?.instantiateViewController(withIdentifier: "resumenController") as! ResumenTableViewController
+                    controller.encuesta = self.encuesta
+                    controller.preguntas = self.preguntas
+                    controller.delegate = self
+                    self.navigationController?.pushViewController(controller, animated: true)
+                }
             }
         }
     }
@@ -157,7 +197,7 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
         if(self.siguienteButton.isHidden){
             self.siguienteButton.isHidden = false
         }
-        if(self.currentIndex > 0 && self.currentIndex <= (self.preguntas.count)){
+        if(self.currentIndex > 0 && self.currentIndex <= (self.preguntas.count) && self.errorPantalla == false){
             self.siguienteButton.setTitle("Siguiente", for: .normal)
             self.currentIndex = self.currentIndex - 1
             self.dataSet = self.preguntas[self.currentIndex]
@@ -166,12 +206,12 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
 
             if(self.currentIndex == 0){
                 self.navigationItem.setHidesBackButton(false, animated: true)
-                self.atrasButton.isHidden = true
+                //self.atrasButton.isHidden = true
                 let newMultiplier:CGFloat = 1.0
-                self.siguienteButtonWidthConstraint = self.siguienteButtonWidthConstraint.setMultiplier(multiplier: newMultiplier)
+                //self.siguienteButtonWidthConstraint = self.siguienteButtonWidthConstraint.setMultiplier(multiplier: newMultiplier)
             }
-        }else{
-            self.dismiss(animated: true, completion: nil)
+        }else if(self.errorPantalla == false){
+            self.navigationController?.popViewController(animated: true)
         }
     }
     
@@ -206,14 +246,14 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
         case TipoPreguntaEnum.estrella.rawValue:
             self.currentControl = "estrella"
             let starView = CosmosView(frame: CGRect(x: 0, y: 0, width: self.controlView.frame.width * 0.8, height: self.controlView.frame.height * 0.5))
-            starView.rating = 0
+            starView.rating = 5
             starView.settings.fillMode = .full
             starView.settings.starSize = 65
             starView.settings.starMargin = 5
-            starView.settings.filledColor = UIColor.white
-            starView.settings.emptyColor = UIColor.darkGray
+            starView.settings.filledColor = UIColor(hexString: "#3E4883")
+            starView.settings.emptyColor = UIColor.clear
             starView.settings.emptyBorderColor = UIColor.white
-            starView.settings.filledBorderColor = UIColor.white
+            starView.settings.filledBorderColor = UIColor(hexString: "#3E4883")
             starView.settings.emptyBorderWidth = 2.0
             starView.settings.filledBorderWidth = 2.0
             starView.didFinishTouchingCosmos = { rating in
@@ -225,13 +265,13 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
                 let rating = respuestaNumero
                 starView.rating = rating
             }else{
-                respuestaGuardada.respuesta = "\(0)"
+                respuestaGuardada.respuesta = "\(5)"
                 self.guardarRespuesta(respuesta: respuestaGuardada)
             }
             
             self.controlView.addSubview(starView)
         break
-        case TipoPreguntaEnum.combo.rawValue:
+        /*case TipoPreguntaEnum.combo.rawValue:
             self.currentControl = "combo"
             let picker = UIPickerView(frame: CGRect(x: 0, y: 0, width: self.controlView.frame.width, height: self.controlView.frame.height * 0.5))
             picker.layer.cornerRadius = 15
@@ -243,47 +283,63 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
                 let index = opciones.firstIndex(where: {$0.Id == Int(respuestaGuardada.respuesta)})
                 picker.selectRow(index!, inComponent: 0, animated: true)
             }else{
-                let dato = opciones.filter{$0.Default == true}.first
-                respuestaGuardada.respuesta = "\((dato?.Id)!)"
+                var dato = opciones.filter{$0.Default == true}.first
+                if(dato != nil){
+                    respuestaGuardada.respuesta = "\((dato?.Id)!)"
+                }else{
+                    dato = opciones.first
+                    respuestaGuardada.respuesta = "\(dato?.Id)"
+                }
                 picker.selectRow((dato?.Order)! - 1, inComponent: 0, animated: true)
                 self.guardarRespuesta(respuesta: respuestaGuardada)
             }
 
             self.controlView.addSubview(picker)
 
-        break
+        break*/
         case TipoPreguntaEnum.segmento.rawValue:
             self.currentControl = "segmento"
             var segmentoData:[String] = []
             for opcion in opciones{
                 segmentoData.append(opcion.Description)
             }
-            let segment = UISegmentedControl(items: segmentoData)
-            segment.frame = CGRect(x: 0, y: 0, width: self.controlView.frame.width, height: self.controlView.frame.height * 0.20)
-            segment.backgroundColor = UIColor.darkGray
-            segment.tintColor = UIColor.flatWhite()
-            segment.addTarget(self, action: #selector(self.opcionSeleccionada(sender:)), for: .valueChanged)
-
-            if  respuestaGuardada.respuesta != ""{
-                let opcionGuardada = opciones.filter{$0.Id == Int(respuestaGuardada.respuesta)}.first
-                segment.selectedSegmentIndex = (opcionGuardada?.Order)! - 1
-            }else{
-                let opcionGuardada = opciones.filter{$0.Default == true}.first
-                segment.selectedSegmentIndex = (opcionGuardada?.Order)! - 1
-                respuestaGuardada.respuesta = "\((opcionGuardada?.Id)!)"
-                self.guardarRespuesta(respuesta: respuestaGuardada)
+            if(opciones.count > 0){
+                let segment = UISegmentedControl(items: segmentoData)
+                segment.frame = CGRect(x: 0, y: 0, width: self.controlView.frame.width, height: self.controlView.frame.height * 0.20)
+                segment.backgroundColor = UIColor.darkGray
+                segment.tintColor = UIColor.flatWhite()
+                segment.addTarget(self, action: #selector(self.opcionSeleccionada(sender:)), for: .valueChanged)
+                
+                if  respuestaGuardada.respuesta != ""{
+                    let opcionGuardada = opciones.filter{$0.Id == Int(respuestaGuardada.respuesta)}.first
+                    segment.selectedSegmentIndex = (opcionGuardada?.Order)! - 1
+                }else{
+                    var opcionGuardada = opciones.filter{$0.Default == true}.first
+                    if(opcionGuardada == nil){
+                        opcionGuardada = opciones.first
+                    }
+                    segment.selectedSegmentIndex = (opcionGuardada?.Order)! - 1
+                    respuestaGuardada.respuesta = "\((opcionGuardada?.Id)!)"
+                    self.guardarRespuesta(respuesta: respuestaGuardada)
+                }
+                
+                self.controlView.addSubview(segment)
             }
-            
-            self.controlView.addSubview(segment)
         break
         case TipoPreguntaEnum.texto.rawValue:
             self.currentControl = "textfield"
-            let textfield = UITextField(frame: CGRect(x: 0, y: 0, width: self.controlView.frame.width, height: self.controlView.frame.height * 0.15))
-            textfield.layer.cornerRadius = 15
-            textfield.backgroundColor = UIColor.flatWhite()
-            textfield.borderStyle = .roundedRect
+            //let textfield = UITextField(frame: CGRect(x: 0, y: 0, width: self.controlView.frame.width, height: self.controlView.frame.height * 0.30))
+            let textfield = MDCTextField(frame: CGRect(x: 0, y: 0, width: self.controlView.frame.width, height: self.controlView.frame.height * 0.30))
+            self.textoController = MDCTextInputControllerOutlined(textInput: textfield)
+            self.textoController?.inlinePlaceholderColor = UIColor.white
+            self.textoController?.errorColor = UIColor.red
+            //textfield.layer.cornerRadius = 15
+            //textfield.backgroundColor = UIColor.flatWhite()
+            //textfield.borderStyle = .roundedRect
+            textfield.textColor = UIColor.white
+            textfield.tintColor = UIColor.white
             textfield.returnKeyType = .done
-            let font = UIFont(name: "Graphik-Light.ttf", size: 14)
+            let font = UIFont(name: "Graphik-Regular.ttf", size: 14)
             textfield.font = font
             textfield.delegate = self
             
@@ -299,23 +355,34 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
             self.controlView.addSubview(textfield)
         break
         case TipoPreguntaEnum.fecha.rawValue:
+            let font = UIFont(name: "Graphik-Regular.ttf", size: 14)
             self.currentControl = "fecha"
-            let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: self.controlView.frame.width, height: self.controlView.frame.height * 0.5))
+            let dateButton = MDCButton(frame: CGRect(x: 0, y: 0, width: self.controlView.frame.width, height: self.controlView.frame.height * 0.30))
+            let df = DateFormatter()
+            df.dateFormat = "yyyy-MM-dd"
+            respuestaGuardada.respuesta = df.string(from: self.currentDate)
+            self.guardarRespuesta(respuesta: respuestaGuardada)
+            if let fecha = df.date(from: respuestaGuardada.respuesta){
+                let fechaSeleccionada = df.string(from: fecha)
+                dateButton.setTitle(fechaSeleccionada, for: .normal)
+            }else{
+                //datePicker.date = Date()
+                respuestaGuardada.respuesta = df.string(from: Date())
+                self.guardarRespuesta(respuesta: respuestaGuardada)
+                dateButton.setTitle(respuestaGuardada.respuesta, for: .normal)
+            }
+            dateButton.setTitleFont(font, for: .normal)
+            dateButton.setBackgroundColor(.clear)
+            dateButton.addTarget(self, action: #selector(self.showDatePicker), for: .touchUpInside)
+            
+            /*let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: self.controlView.frame.width, height: self.controlView.frame.height * 0.5))
             datePicker.layer.cornerRadius = 15
             datePicker.backgroundColor = UIColor.flatWhite()
             datePicker.addTarget(self, action: #selector(self.fechaSeleccionada(sender:)), for: .valueChanged)
             let df = DateFormatter()
-            df.dateFormat = "yyyy-MM-dd hh:mm:ss"
+            df.dateFormat = "yyyy-MM-dd"*/
 
-            if let fecha = df.date(from: respuestaGuardada.respuesta){
-                datePicker.date = fecha
-            }else{
-                datePicker.date = Date()
-                respuestaGuardada.respuesta = df.string(from: Date())
-                self.guardarRespuesta(respuesta: respuestaGuardada)
-            }
-
-            self.controlView.addSubview(datePicker)
+            self.controlView.addSubview(dateButton)
         break
         case TipoPreguntaEnum.opcionMultiple.rawValue:
             self.currentControl = "opcionMultiple"
@@ -332,15 +399,22 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
         break
         case TipoPreguntaEnum.comentarios.rawValue	:
             self.currentControl = "textview"
-            let commentBox = UITextView(frame: CGRect(x: 0, y: 0, width: self.controlView.frame.width, height: self.controlView.frame.height))
-            commentBox.layer.cornerRadius = 15
-            let font = UIFont(name: "Graphik-Light.ttf", size: 14)
+            //let commentBox = UITextView(frame: CGRect(x: 0, y: 0, width: self.controlView.frame.width, height: self.controlView.frame.height))
+            let commentBox = MDCMultilineTextField(frame: CGRect(x: 0, y: 0, width: self.controlView.frame.width, height: self.controlView.frame.height))
+            self.commentController = MDCTextInputControllerUnderline(textInput: commentBox)
+            self.commentController?.inlinePlaceholderColor = UIColor.white
+            self.commentController?.errorColor = UIColor.red
+            
+            commentBox.textColor = UIColor.white
+            commentBox.tintColor = UIColor.white
+            let font = UIFont(name: "Graphik-Regular.ttf", size: 14)
             commentBox.font = font
-            commentBox.delegate = self
+            commentBox.textView?.delegate = self
+            //commentBox.delegate = self
 
             if(respuestaGuardada.respuesta == ""){
                 commentBox.placeholder = self.dataSet?.Description
-                respuestaGuardada.respuesta = commentBox.text
+                respuestaGuardada.respuesta = commentBox.text!
                 self.guardarRespuesta(respuesta: respuestaGuardada)
             }else{
                 commentBox.text = respuestaGuardada.respuesta
@@ -350,14 +424,20 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
         break
         case TipoPreguntaEnum.email.rawValue:
             self.currentControl = "textfield"
-            let textfield = UITextField(frame: CGRect(x: 0, y: 0, width: self.controlView.frame.width, height: self.controlView.frame.height * 0.15))
-            textfield.layer.cornerRadius = 15
-            textfield.backgroundColor = UIColor.flatWhite()
-            textfield.borderStyle = .roundedRect
+            //let textfield = UITextField(frame: CGRect(x: 0, y: 0, width: self.controlView.frame.width, height: self.controlView.frame.height * 0.15))
+            let textfield = MDCTextField(frame: CGRect(x: 0, y: 0, width: self.controlView.frame.width, height: self.controlView.frame.height * 0.30))
+            self.emailController = MDCTextInputControllerOutlined(textInput: textfield)
+            self.emailController?.inlinePlaceholderColor = UIColor.white
+            self.emailController?.errorColor = UIColor.red
+            //textfield.layer.cornerRadius = 15
+            //textfield.backgroundColor = UIColor.flatWhite()
+            //textfield.borderStyle = .roundedRect
+            textfield.textColor = UIColor.white
+            textfield.tintColor = UIColor.white
             textfield.returnKeyType = .done
             textfield.keyboardType = .emailAddress
             textfield.autocapitalizationType = .none
-            let font = UIFont(name: "Graphik-Light.ttf", size: 14)
+            let font = UIFont(name: "Graphik-Regular.ttf", size: 14)
             textfield.font = font
             textfield.delegate = self
             
@@ -374,13 +454,20 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
         break
         case TipoPreguntaEnum.celular.rawValue:
             self.currentControl = "textfield"
-            let textfield = UITextField(frame: CGRect(x: 0, y: 0, width: self.controlView.frame.width, height: self.controlView.frame.height * 0.15))
-            textfield.layer.cornerRadius = 15
-            textfield.backgroundColor = UIColor.flatWhite()
-            textfield.borderStyle = .roundedRect
+            //let textfield = UITextField(frame: CGRect(x: 0, y: 0, width: self.controlView.frame.width, height: self.controlView.frame.height * 0.30))
+            let textfield = MDCTextField(frame: CGRect(x: 0, y: 0, width: self.controlView.frame.width, height: self.controlView.frame.height * 0.30))
+            self.celularController = MDCTextInputControllerOutlined(textInput: textfield)
+            self.celularController?.inlinePlaceholderColor = UIColor.white
+            self.celularController?.errorColor = UIColor.red
+            //let textfield = SkyFloatingLabelTextField(frame: CGRect(x: 0, y: 0, width: self.controlView.frame.width, height: self.controlView.frame.height * 0.30))
+            //textfield.layer.cornerRadius = 15
+            //textfield.backgroundColor = UIColor.flatWhite()
+            //textfield.borderStyle = .roundedRect
+            textfield.textColor = UIColor.white
+            textfield.tintColor = UIColor.white
             textfield.returnKeyType = .done
             textfield.keyboardType = .phonePad
-            let font = UIFont(name: "Graphik-Light.ttf", size: 14)
+            let font = UIFont(name: "Graphik-Regular.ttf", size: 14)
             textfield.font = font
             textfield.delegate = self
             
@@ -412,6 +499,22 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
         }else{
             SharedData.sharedInstance.respuestas.append(respuesta)
         }
+    }
+    
+    @objc func showDatePicker(){
+        let controller = self.storyboard?.instantiateViewController(withIdentifier: "fechaController") as! OrderDateViewController
+        controller.delegate = self
+        controller.currentDate = self.currentDate
+        self.present(controller, animated: true, completion: nil)
+    }
+    
+    func seleccionarFecha(fecha: Date) {
+        self.currentDate = fecha
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFormatter.string(from: fecha)
+        
+        self.setPregunta()
     }
     
     //MARK: Tableview
@@ -553,9 +656,13 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
         }else if(textField.keyboardType == .emailAddress){
             let validEmail = self.validate(field: textField)
             if(validEmail!){
+                self.emailController?.setErrorText(nil, errorAccessibilityValue: nil)
                 self.removeErrorHighlightTextField(textField: textField)
+                self.errorPantalla = false
             }else{
+                self.emailController?.setErrorText("El correo electrónico es inválido", errorAccessibilityValue: nil)
                 self.errorHighlightTextField(textField: textField)
+                self.errorPantalla = true
             }
             return true
         }else{
@@ -587,16 +694,19 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
     
     // Text Field is empty - show red border
     func errorHighlightTextField(textField: UITextField){
-        textField.layer.borderColor = UIColor.red.cgColor
+        /*let skyField = textField as! SkyFloatingLabelTextField
+        skyField.errorMessage = "El correo electrónico es inválido"*/
+        /*textField.layer.borderColor = UIColor.red.cgColor
         textField.layer.borderWidth = 1
-        textField.layer.cornerRadius = 5
+        textField.layer.cornerRadius = 5*/
     }
     
     // Text Field is NOT empty - show gray border with 0 border width
-    func removeErrorHighlightTextField(textField: UITextField){
-        textField.layer.borderColor = UIColor.gray.cgColor
+    func removeErrorHighlightTextField(textField: UITextField){        /*let skyField = textField as! SkyFloatingLabelTextField
+        skyField.errorMessage = ""*/
+        /*textField.layer.borderColor = UIColor.gray.cgColor
         textField.layer.borderWidth = 0
-        textField.layer.cornerRadius = 5
+        textField.layer.cornerRadius = 5*/
     }
 
     //MARK: PickerView
@@ -656,9 +766,10 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     //MARK: TextView
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
-        textView.text = ""
-        textView.textColor = UIColor.flatBlackColorDark()
+        //textView.text = ""
+        //textView.textColor = UIColor.white
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {

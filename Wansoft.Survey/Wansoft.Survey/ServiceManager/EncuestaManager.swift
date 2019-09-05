@@ -13,13 +13,39 @@ import ObjectMapper
 import RealmSwift
 
 public class EncuestaManager{
-    func getEncuestas(login:LoginModel, completionHandler:@escaping(Bool) -> ()){
+    func getEncuestas(login:LoginModel, completionHandler:@escaping(LoginResultModel) -> ()){
         //LLamada Alamofire
         let url = "https://demo7042471.mockable.io/getEncuestas"
         let urlProduccion = "https://www.wansoft.net/wansoft.web/app/GetSurveyList?subsidiaryId=\(login.idSucursal)&subsidiaryPassword=\(login.password)"
         
-        Alamofire.request(urlProduccion).responseJSON {response in
-            if let result = response.result.value as? [String:Any] {
+        Alamofire.request(urlProduccion).responseObject {(response:DataResponse<LoginResultModel>) in
+            if let result = response.result.value {
+                if(result.MessageType == 1){
+                    /*let surveys = result["surveyList"] as! [[String:Any]]
+                    let encuestas = Mapper<EncuestaModel>().mapArray(JSONArray: surveys)*/
+                    var encuestasFiltradas:[EncuestaModel] = []
+                    for encuesta in result.surveyList{
+                        var preguntasLista:List<PreguntaModel> = List<PreguntaModel>()
+                        var sortedPreguntas:[PreguntaModel] = []
+                        for pregunta in encuesta.Questions{
+                            sortedPreguntas.append(pregunta)
+                        }
+                        let preguntas = sortedPreguntas.sorted(by: { $0.Order < $1.Order })
+                        for pregunta in preguntas{
+                            if(pregunta.Status == 1){
+                                preguntasLista.append(pregunta)
+                            }
+                        }
+                        encuesta.Questions = preguntasLista
+                        encuestasFiltradas.append(encuesta)
+                    }
+                    RealmHelper.sharedInstance.updateEncuestas(encuestas: encuestasFiltradas)
+                    completionHandler(result)
+                }else{
+                    completionHandler(result)
+                }
+            }
+            /*if let result = response.result.value as? [String:Any] {
                 if let callResult = result["Success"]{
                     let message = result["Message"] as! String
                     SharedData.sharedInstance.progressError(message: message)
@@ -47,7 +73,7 @@ public class EncuestaManager{
                 RealmHelper.sharedInstance.updateEncuestas(encuestas: encuestasFiltradas)
                 //RealmHelper.sharedInstance.guardarEncuestas(encuestas: encuestasFiltradas)
                 completionHandler(true)
-            }
+            }*/
         }
     }
     

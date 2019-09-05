@@ -19,6 +19,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let loginResult = RealmHelper.sharedInstance.getObject(type: LoginModel.self)
         let loginModel = loginResult as? LoginModel
         SharedData.sharedInstance.ordenManual = UserDefaults.standard.bool(forKey: "ordenConfig")
+        let barcode = UserDefaults.standard.string(forKey: "barcodeActivo")
+        if(barcode == "" || barcode == "true" || barcode == nil){
+            SharedData.sharedInstance.barcodeActivo = true
+            UserDefaults.standard.set("\(SharedData.sharedInstance.barcodeActivo)", forKey: "barcodeActivo")
+        }else
+        {
+            SharedData.sharedInstance.barcodeActivo = false
+            UserDefaults.standard.set("\(SharedData.sharedInstance.barcodeActivo)", forKey: "barcodeActivo")
+        }
+        
         if(loginModel!.idSucursal == ""){
             self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "startNavigationController")
         }else{

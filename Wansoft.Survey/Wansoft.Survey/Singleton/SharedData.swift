@@ -18,7 +18,9 @@ class SharedData{
     var password:String = ""
     var font = UIFont(name: "Graphik-Regular.ttf", size: UIFont.systemFontSize)
     var ordenManual = false
+    var barcodeActivo = true
     var fechaOrden = Date()
+    var login = LoginModel()
     
     static let sharedInstance = SharedData()
     
@@ -26,10 +28,21 @@ class SharedData{
     
     func showProgress(){
         KRProgressHUD.set(maskType: .black)
-        let color1 = UIColor.red
-        let color2 = UIColor.yellow
+        KRProgressHUD.set(style: KRProgressHUDStyle.black)
+        let color1 = UIColor.white
+        let color2 = UIColor.white
         KRProgressHUD.set(activityIndicatorViewColors: [color1, color2])
         KRProgressHUD.show(withMessage: "Cargando...", completion: nil)
+    }
+    
+    func showProgressWithMessage(message:String){
+        KRProgressHUD.set(maskType: .black)
+        KRProgressHUD.set(style: KRProgressHUDStyle.black)
+        let color1 = UIColor.white
+        let color2 = UIColor.white
+        
+        KRProgressHUD.set(activityIndicatorViewColors: [color1, color2])
+        KRProgressHUD.show(withMessage: message, completion: nil)
     }
     
     func dismissProgressIfVisible(){
@@ -43,10 +56,20 @@ class SharedData{
     }
     
     func progressError(message:String){
+        KRProgressHUD.set(maskType: .black)
+        KRProgressHUD.set(style: KRProgressHUDStyle.black)
+        let color1 = UIColor.white
+        let color2 = UIColor.white
+        KRProgressHUD.set(activityIndicatorViewColors: [color1, color2])
         KRProgressHUD.showError(withMessage: message)
     }
     
     func progressSuccess(){
+        KRProgressHUD.set(maskType: .black)
+        KRProgressHUD.set(style: KRProgressHUDStyle.black)
+        let color1 = UIColor.white
+        let color2 = UIColor.white
+        KRProgressHUD.set(activityIndicatorViewColors: [color1, color2])
         KRProgressHUD.showSuccess(withMessage: "Carga exitosa")
     }
 }

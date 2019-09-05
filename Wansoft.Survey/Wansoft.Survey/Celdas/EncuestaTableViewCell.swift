@@ -28,6 +28,6 @@ class EncuestaTableViewCell: UITableViewCell {
 
     func configureCell(encuesta:EncuestaModel, pendientes:Int){
         self.encuestaCellView.layer.cornerRadius = 15
-        self.tipoEncuestaLabel.text = encuesta.Name! + "    (\(pendientes))"
+        self.tipoEncuestaLabel.text = encuesta.Name! + " Pendientes:(\(pendientes))"
     }
 }

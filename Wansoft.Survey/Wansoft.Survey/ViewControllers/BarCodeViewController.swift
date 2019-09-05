@@ -80,10 +80,7 @@ class BarCodeViewController: UIViewController {
                     NSLog("Unable to start scanning")
                 }
             } else {
-                let alert = UIAlertController(title: "Aviso", message: "Esta aplicación requiere permisos de camara", preferredStyle: .alert)
-                let action = UIAlertAction(title: "Aceptar", style: .default, handler: nil)
-                alert.addAction(action)
-                self.present(alert, animated: true, completion: nil)
+                UIAlertView(title: "Aviso", message: "Esta aplicación requiere permisos camara", delegate: nil, cancelButtonTitle: nil, otherButtonTitles: "Aceptar").show()
             }
         })
     }

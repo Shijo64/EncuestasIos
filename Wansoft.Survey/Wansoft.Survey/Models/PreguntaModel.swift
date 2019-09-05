@@ -17,6 +17,7 @@ class PreguntaModel:Object, Mappable{
     @objc dynamic var Order = 0
     @objc dynamic var Status = 0
     @objc dynamic var QuestionType:TipoPreguntaModel?
+    @objc dynamic var Optional = false
     let AnswerOptions = List<OpcionesPreguntaModel>()
     
     required convenience init?(map: Map) {
@@ -30,6 +31,7 @@ class PreguntaModel:Object, Mappable{
         self.Order <- map["Order"]
         self.Status <- map["Status"]
         self.QuestionType <- map["QuestionType"]
+        self.Optional <- map["Optional"]
         var options:[OpcionesPreguntaModel]?
         options <- map["AnswerOptions"]
         if let options = options{

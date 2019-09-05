@@ -29,9 +29,6 @@ class ResumenTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.respuestas = SharedData.sharedInstance.respuestas
         self.encuestaEnviar = EncuestaBO()
-        for pregunta in (self.encuesta?.Questions)!{
-            self.preguntas.append(pregunta)
-        }
         
         let backgroundImage = UIImage(named: "restaurant-desk")
         let imageView = UIImageView(image: backgroundImage)
@@ -159,11 +156,10 @@ class ResumenTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if(section == (self.respuestas?.count)! - 1){
-            let footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 60))
-            let sendButton = UIButton(frame: CGRect(x: 0, y: 0, width: footerView.frame.width * 0.80, height:60))
+            let footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 50))
+            let sendButton = UIButton(frame: CGRect(x: 0, y: 0, width: footerView.frame.width * 0.80, height:50))
             sendButton.center = footerView.center
-            sendButton.backgroundColor = UIColor.flatSkyBlue()
-            sendButton.layer.cornerRadius = 15
+            sendButton.backgroundColor = UIColor(hexString: "#3E4883")
             sendButton.setTitle("Enviar", for: .normal)
             sendButton.addTarget(self, action: #selector(self.enviarEncuesta), for: .touchUpInside)
             footerView.addSubview(sendButton)

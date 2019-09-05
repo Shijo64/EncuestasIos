@@ -26,37 +26,57 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
         
-        self.enviarButton.layer.cornerRadius = 15        // Do any additional setup after loading the view.
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.codigoTextField.text = SharedData.sharedInstance.login.idSucursal
+        self.passwordTextField.text = SharedData.sharedInstance.login.password
+    }
+    
     @IBAction func EnviarCodigo(_ sender: Any) {
-        self.codigoSucursal = self.codigoTextField.text
-        let login = LoginModel()
-        login.idSucursal = self.codigoSucursal!
-        login.password = self.passwordTextField.text!
-        let manager = EncuestaManager()
-        
-        SharedData.sharedInstance.showProgress()
-        let network = NetworkHelper.sharedInstance
-        switch network.reachability.connection {
-        case .none:
-            SharedData.sharedInstance.progressError(message: "Por favor revisa la conexión")
-            break
-        default:
-            manager.getEncuestas(login: login){
-                result in
-                if(result){
-                    RealmHelper.sharedInstance.saveObject(object: login)
-                    let controller = self.storyboard?.instantiateViewController(withIdentifier: "mainNavigationController")
-                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                    appDelegate.window?.rootViewController = controller
-                    self.present(controller!, animated: true, completion:nil)
+        if(self.codigoTextField.text!.isEmpty || self.passwordTextField.text!.isEmpty){
+            let alert = UIAlertController(title: "Aviso", message: "Es necesario introducir el código de la sucursal y la contraseña.", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "Aceptar", style: .default, handler: nil)
+            alertAction.setValue(UIColor(hexString: "#3E4883"), forKey: "titleTextColor")
+            alert.addAction(alertAction)
+            self.present(alert, animated: true, completion: nil)
+        }else{
+            SharedData.sharedInstance.showProgressWithMessage(message: "Por favor espera, \nIniciando Sesión...")
+            self.codigoSucursal = self.codigoTextField.text
+            let login = LoginModel()
+            login.idSucursal = self.codigoSucursal!
+            login.password = self.passwordTextField.text!
+            let manager = EncuestaManager()
+            
+            let network = NetworkHelper.sharedInstance
+            switch network.reachability.connection {
+            case .none:
+                SharedData.sharedInstance.progressError(message: "Por favor revisa la conexión")
+                break
+            default:
+                manager.getEncuestas(login: login){
+                    result in
+                    if(result.MessageType == 1){
+                        RealmHelper.sharedInstance.saveObject(object: login)
+                        let controller = self.storyboard?.instantiateViewController(withIdentifier: "mainNavigationController")
+                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                        appDelegate.window?.rootViewController = controller
+                        self.present(controller!, animated: true, completion:{
+                            SharedData.sharedInstance.dismissProgressHud()
+                        })
+                    }else{
+                        let alert = UIAlertController(title: "Aviso", message: result.Message, preferredStyle: .alert)
+                        let action = UIAlertAction(title: "Aceptar", style: .default, handler: nil)
+                        action.setValue(UIColor(hexString: "#3E4883"), forKey: "titleTextColor")
+                        alert.addAction(action)
+                        self.present(alert, animated: true, completion: nil)
+                    }
                 }
+                break
             }
-            break
         }
     }
     

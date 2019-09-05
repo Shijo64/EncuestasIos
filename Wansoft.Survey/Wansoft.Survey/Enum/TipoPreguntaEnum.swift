@@ -10,12 +10,11 @@ import Foundation
 
 enum TipoPreguntaEnum:String{
     case estrella = "Calificación (estrellas)"
-    case combo = "Combo"
-    case segmento = "Segmento"
-    case texto = "Texto abierto"
+    case segmento = "Opción múltiple (una opción)"
+    case texto = "Texto breve"
     case fecha = "Fecha"
-    case opcionMultiple = "Opción multiple"
-    case comentarios = "Comentarios"
+    case opcionMultiple = "Opción múltiple (varias opciones)"
+    case comentarios = "Texto extenso"
     case email = "Correo electrónico"
     case celular = "Celular"
 }

@@ -8,13 +8,15 @@
 
 import UIKit
 import SideMenu
+import MaterialComponents
+import CVCalendar
 
 class HomeViewController: UIViewController, UITextFieldDelegate, BarcodeDelegate, ResumenDelegate, FechaDelegate {
 
     @IBOutlet weak var tipoEncuestaLabel: UILabel!
-    @IBOutlet weak var iniciarButton: UIButton!
-    @IBOutlet weak var numeroOrdenTextfield: UITextField!
-    @IBOutlet weak var codigoBarrasButton: UIButton!
+    @IBOutlet weak var iniciarButton: MDCButton!
+    @IBOutlet weak var numeroOrdenTextfield: MDCTextField!
+    @IBOutlet weak var codigoBarrasButton: MDCButton!
     @IBOutlet weak var fechaOrdenLabel: UILabel!
     @IBOutlet weak var fechaOrdenView: UIView!
     
@@ -24,26 +26,24 @@ class HomeViewController: UIViewController, UITextFieldDelegate, BarcodeDelegate
     var timer = Timer()
     var isTimerRunning = false
     var encuestasPendientes:[EncuestaBO]?
+    var numeroOrdenController:MDCTextInputControllerOutlined?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.numeroOrdenTextfield.text = ""
+        self.numeroOrdenController = MDCTextInputControllerOutlined(textInput: self.numeroOrdenTextfield)
         
         let logo = UIImage(named: "logo-completo")
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
         
-        self.iniciarButton.layer.cornerRadius = 15
-        self.codigoBarrasButton.layer.cornerRadius = 15
         SideMenuManager.default.menuPresentMode = .menuSlideIn
         SideMenuManager.default.menuFadeStatusBar = false
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         tap.cancelsTouchesInView = false
         self.numeroOrdenTextfield.delegate = self
         self.view.addGestureRecognizer(tap)
-        self.fechaOrdenView.layer.cornerRadius = 5
-        self.fechaOrdenView.layer.masksToBounds = true
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.elejirFecha))
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.elegirFecha))
         self.fechaOrdenView.addGestureRecognizer(tapRecognizer)
         
         let date = Date()
@@ -57,11 +57,16 @@ class HomeViewController: UIViewController, UITextFieldDelegate, BarcodeDelegate
     override func viewWillAppear(_ animated: Bool) {
         if(SharedData.sharedInstance.ordenManual){
             self.numeroOrdenTextfield.isUserInteractionEnabled = true
-            self.fechaOrdenView.isUserInteractionEnabled = true
         }else{
             self.numeroOrdenTextfield.isUserInteractionEnabled = false
-            self.fechaOrdenView.isUserInteractionEnabled = false
         }
+        
+        if(SharedData.sharedInstance.barcodeActivo){
+            self.codigoBarrasButton.isHidden = false
+        }else{
+            self.codigoBarrasButton.isHidden = true
+        }
+        
         self.buscarPendientes()
         self.getEncuestaDefault()
         SharedData.sharedInstance.dismissProgressIfVisible()
@@ -113,8 +118,9 @@ class HomeViewController: UIViewController, UITextFieldDelegate, BarcodeDelegate
     
     @IBAction func iniciarEncuesta(_ sender: Any) {
         if(self.numeroOrdenTextfield.text == ""){
-            self.errorHighlightTextField(textField: self.numeroOrdenTextfield)
+            self.numeroOrdenController?.setErrorText("", errorAccessibilityValue: nil)
         }else{
+            self.numeroOrdenController?.setErrorText(nil, errorAccessibilityValue: nil)
             SharedData.sharedInstance.numeroOrden = Int(self.numeroOrdenTextfield.text!)!
             let formatter = DateFormatter()
             formatter.dateStyle = .short
@@ -164,7 +170,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate, BarcodeDelegate
         let dateString = dateFormatter.string(from: date!)
         self.fechaOrdenLabel.text = dateString
         
-        self.removeErrorHighlightTextField(textField: self.numeroOrdenTextfield)
+        self.numeroOrdenController?.setErrorText(nil, errorAccessibilityValue: nil)
     }
     
     //MARK: TEXTFIELD
@@ -173,7 +179,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate, BarcodeDelegate
     }*/
     
     // Text Field is empty - show red border
-    func errorHighlightTextField(textField: UITextField){
+    /*func errorHighlightTextField(textField: UITextField){
         textField.layer.borderColor = UIColor.red.cgColor
         textField.layer.borderWidth = 1
         textField.layer.cornerRadius = 5
@@ -184,6 +190,12 @@ class HomeViewController: UIViewController, UITextFieldDelegate, BarcodeDelegate
         textField.layer.borderColor = UIColor.gray.cgColor
         textField.layer.borderWidth = 0
         textField.layer.cornerRadius = 5
+    }*/
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if(string != ""){
+            self.numeroOrdenController?.setErrorText(nil, errorAccessibilityValue: nil)
+        }
+        return true
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -219,7 +231,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate, BarcodeDelegate
         self.fechaOrdenLabel.text = dateString
     }
     
-    @objc func elejirFecha(){
+    @objc func elegirFecha(){
         /*let view = UIView(frame: CGRect(x: 10, y: 150, width: self.view.frame.width - 20, height: self.view.frame.height * 0.5))
         view.backgroundColor = UIColor(white: 1, alpha: 0.95)
         self.view.addSubview(view)

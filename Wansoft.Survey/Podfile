@@ -20,4 +20,6 @@ pod "MTBBarcodeScanner"
 pod 'RSBarcodes_Swift', '~> 4.2.1'
 pod 'CameraBackground'
 pod 'EmailValidator'
+pod 'MaterialComponents'
+pod 'CVCalendar'
 end

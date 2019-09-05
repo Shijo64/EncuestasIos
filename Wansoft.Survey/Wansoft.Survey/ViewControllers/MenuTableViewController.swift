@@ -16,18 +16,14 @@ class MenuTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let logo = UIImage(named: "logo-completo")
-        let imageView = UIImageView(image:logo)
-        self.navigationItem.titleView = imageView
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.dismissKeyboard()
-        let backgroundImage = UIImage(named: "restaurant-desk")
+        /*let backgroundImage = UIImage(named: "restaurant-desk")
         let imageView = UIImageView(image: backgroundImage)
         imageView.contentMode = .scaleToFill
-        self.tableView.backgroundView = imageView
+        self.tableView.backgroundView = imageView*/
     }
 
     func limpiarBaseDatos(){
@@ -56,11 +52,6 @@ class MenuTableViewController: UITableViewController {
         return 0
     }
     
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.backgroundColor = UIColor.darkGray
-        cell.alpha = 0.75
-    }
-    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }
@@ -73,26 +64,85 @@ class MenuTableViewController: UITableViewController {
             })
         }
         else if(indexPath.row == 1){
-            let controller = self.storyboard?.instantiateViewController(withIdentifier: "encuestasController")
-            self.navigationController?.pushViewController(controller!, animated: true)
+            self.showSucursalAlert(){
+                result in
+                if(result){
+                    let controller = self.storyboard?.instantiateViewController(withIdentifier: "encuestasController")
+                    self.navigationController?.pushViewController(controller!, animated: true)
+                }else{
+                    let message = "Necesitas el id de la sucursal para ver las encuestas"
+                    self.showErrorCodigoSucursal(message: message)
+                }
+            }
         }
         else if(indexPath.row == 2){
-            self.dismiss(animated: true, completion: {
-                let controller = self.storyboard?.instantiateViewController(withIdentifier: "startNavigationController")
-                let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                appDelegate.window?.rootViewController = controller
-                self.navigationController?.popToRootViewController(animated: true)
-                self.limpiarBaseDatos()
-            })
+            self.showSucursalAlert(){
+                result in
+                if (result){
+                    var currentLogin = RealmHelper.sharedInstance.getObject(type: LoginModel.self) as! LoginModel
+                    SharedData.sharedInstance.login.idSucursal = currentLogin.idSucursal
+                    SharedData.sharedInstance.login.password = currentLogin.password
+                    SharedData.sharedInstance.showProgress()
+                    self.dismiss(animated: true, completion: {
+                        let controller = self.storyboard?.instantiateViewController(withIdentifier: "startNavigationController")
+                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                        appDelegate.window?.rootViewController = controller
+                        self.navigationController?.popToRootViewController(animated: true)
+                        self.limpiarBaseDatos()
+                        SharedData.sharedInstance.dismissProgressHud()
+                    })
+                }else{
+                    let message = "Necesitas el id de la sucursal para poder cambiar de sucursal"
+                    self.showErrorCodigoSucursal(message: message)
+                }
+            }
         }
         else if(indexPath.row == 3){
-            let controller = self.storyboard?.instantiateViewController(withIdentifier: "configuracionController")
-            self.navigationController?.pushViewController(controller!, animated: true)
+            self.showSucursalAlert(){
+                result in
+                if(result){
+                    let controller = self.storyboard?.instantiateViewController(withIdentifier: "configuracionController")
+                    self.navigationController?.pushViewController(controller!, animated: true)
+                }else{
+                    let message = "Necesitas el id de la sucursal para poder entrar a la configuración"
+                    self.showErrorCodigoSucursal(message: message)
+                }
+            }
         }
         else if(indexPath.row == 4){
             let controller = self.storyboard?.instantiateViewController(withIdentifier: "acercaDeController")
             self.navigationController?.pushViewController(controller!, animated: true)
         }
+    }
+    
+    func showSucursalAlert(completionHandler:@escaping(Bool) -> ()){
+        let alert = UIAlertController(title: "Sucursal", message: "Introduce el id de sucursal para ingresar a la configuración", preferredStyle: .alert)
+        alert.addTextField{ (textfield) in
+            textfield.placeholder = "Código sucursal"
+        }
+        let aceptarAction = UIAlertAction(title: "Aceptar", style: .default, handler: { (action) in
+            let codigo = alert.textFields![0].text
+            let login = RealmHelper.sharedInstance.getObject(type: LoginModel.self) as! LoginModel
+            if(codigo == login.idSucursal){
+                completionHandler(true)
+            }else{
+                completionHandler(false)
+            }
+        })
+        aceptarAction.setValue(UIColor(hexString: "#3E4883"), forKey: "titleTextColor")
+        let cancelarAction = UIAlertAction(title: "Cancelar", style: .cancel, handler: nil)
+        cancelarAction.setValue(UIColor.red, forKey: "titleTextColor")
+        alert.addAction(aceptarAction)
+        alert.addAction(cancelarAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showErrorCodigoSucursal(message:String){
+        let alert = UIAlertController(title: "Sucursal", message: message, preferredStyle: .alert)
+        let aceptarAction = UIAlertAction(title: "Aceptar", style: .default, handler: nil)
+        aceptarAction.setValue(UIColor(hexString: "#3E4883"), forKey: "titleTextColor")
+        alert.addAction(aceptarAction)
+        self.present(alert, animated: true, completion: nil)
     }
     
     @objc func dismissKeyboard() {

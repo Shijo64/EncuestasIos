@@ -45,10 +45,10 @@ class EncuestasTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         //self.encuestas = SharedData.sharedInstance.sucursal?.Encuestas
-        let backgroundImage = UIImage(named: "restaurant-desk")
-        let imageView = UIImageView(image: backgroundImage)
-        imageView.contentMode = .scaleToFill
-        self.tableView.backgroundView = imageView
+        //let backgroundImage = UIImage(named: "restaurant-desk")
+        //let imageView = UIImageView(image: backgroundImage)
+        //imageView.contentMode = .scaleToFill
+        //self.tableView.backgroundView = imageView
         let data = RealmHelper.sharedInstance.getObjects(type: EncuestaModel.self)
         self.encuestas = (data as! [EncuestaModel])
         self.tableView.reloadData()
@@ -72,7 +72,7 @@ class EncuestasTableViewController: UITableViewController {
             let manager = EncuestaManager()
             manager.getEncuestas(login: result){
                 result in
-                if(result){
+                if(result.MessageType == 1){
                     //RealmHelper.sharedInstance.saveObject(object: login)
                     //RealmHelper.sharedInstance.guardarEncuestas(encuestas: result.Encuestas)
                     self.encuestas = (RealmHelper.sharedInstance.getObjects(type: EncuestaModel.self) as! [EncuestaModel])
@@ -112,10 +112,6 @@ class EncuestasTableViewController: UITableViewController {
 
     
     // MARK: - Table view data source
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.backgroundColor = UIColor.darkGray
-        cell.alpha = 0.75
-    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections

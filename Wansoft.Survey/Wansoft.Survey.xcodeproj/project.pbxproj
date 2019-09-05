@@ -34,6 +34,7 @@
 		56AE035322036A9300157AD1 /* EnvioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56AE035222036A9300157AD1 /* EnvioViewController.swift */; };
 		56DEEEB321EFCAAE001481A7 /* EncuestasTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DEEEB221EFCAAE001481A7 /* EncuestasTableViewController.swift */; };
 		56E11D0122B2FD5F00174106 /* OrderDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E11D0022B2FD5F00174106 /* OrderDateViewController.swift */; };
+		78060DEE22F4CF8600809969 /* LoginResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78060DED22F4CF8600809969 /* LoginResultModel.swift */; };
 		7E2123C521ED5FDA00AA06F4 /* SucursalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2123C421ED5FDA00AA06F4 /* SucursalModel.swift */; };
 		7E2834BD21ED46A400DD1C36 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2834BC21ED46A400DD1C36 /* LoginViewController.swift */; };
 		7E3AC84D21E7F9BA00D13A14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3AC84C21E7F9BA00D13A14 /* AppDelegate.swift */; };
@@ -80,6 +81,7 @@
 		56AE035222036A9300157AD1 /* EnvioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvioViewController.swift; sourceTree = "<group>"; };
 		56DEEEB221EFCAAE001481A7 /* EncuestasTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncuestasTableViewController.swift; sourceTree = "<group>"; };
 		56E11D0022B2FD5F00174106 /* OrderDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDateViewController.swift; sourceTree = "<group>"; };
+		78060DED22F4CF8600809969 /* LoginResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResultModel.swift; sourceTree = "<group>"; };
 		7E2123C421ED5FDA00AA06F4 /* SucursalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SucursalModel.swift; sourceTree = "<group>"; };
 		7E2834BC21ED46A400DD1C36 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		7E3AC84921E7F9BA00D13A14 /* Wansoft.Survey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wansoft.Survey.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -240,6 +242,7 @@
 				56287753220DF1B8005BE1FF /* ResultadoEncuesta.swift */,
 				56287755220DF24E005BE1FF /* DetalleResultadoEncuesta.swift */,
 				56164CA42283265C005B11C8 /* EncuestaSeleccionadaModel.swift */,
+				78060DED22F4CF8600809969 /* LoginResultModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -370,14 +373,21 @@
 				"${PODS_ROOT}/Target Support Files/Pods-Wansoft.Survey/Pods-Wansoft.Survey-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/CVCalendar/CVCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/CameraBackground/CameraBackground.framework",
 				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
 				"${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework",
 				"${BUILT_PRODUCTS_DIR}/EmailValidator/EmailValidator.framework",
 				"${BUILT_PRODUCTS_DIR}/KRActivityIndicatorView/KRActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/KRProgressHUD/KRProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework",
+				"${BUILT_PRODUCTS_DIR}/MDFTextAccessibility/MDFTextAccessibility.framework",
 				"${BUILT_PRODUCTS_DIR}/MTBBarcodeScanner/MTBBarcodeScanner.framework",
+				"${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework",
 				"${BUILT_PRODUCTS_DIR}/MiniLayout/MiniLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/MotionAnimator/MotionAnimator.framework",
+				"${BUILT_PRODUCTS_DIR}/MotionInterchange/MotionInterchange.framework",
+				"${BUILT_PRODUCTS_DIR}/MotionTransitioning/MotionTransitioning.framework",
 				"${BUILT_PRODUCTS_DIR}/MultiToggleButton/MultiToggleButton.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/PPBadgeViewSwift/PPBadgeViewSwift.framework",
@@ -392,14 +402,21 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CVCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CameraBackground.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cosmos.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EmailValidator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KRActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KRProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFInternationalization.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFTextAccessibility.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MTBBarcodeScanner.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MaterialComponents.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MiniLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionAnimator.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionInterchange.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionTransitioning.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MultiToggleButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PPBadgeViewSwift.framework",
@@ -440,6 +457,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78060DEE22F4CF8600809969 /* LoginResultModel.swift in Sources */,
 				7E4B53E521E9156300B81C9C /* EncuestaRespuestas.swift in Sources */,
 				5659D47B21F7A32600595E09 /* DetallePendienteViewController.swift in Sources */,
 				5653F01421FF8CBD00C93ACC /* ResumenTableViewController.swift in Sources */,
