@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>391183607871-ujq1hhvn7c76hvnuub2lqp28af9pqmks.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.391183607871-ujq1hhvn7c76hvnuub2lqp28af9pqmks</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDiOxmgqY_5U4VbouvP6VRE3o1GIYR-t_s</string>
+	<key>GCM_SENDER_ID</key>
+	<string>391183607871</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.wansoft.Wansoft.Survey</string>
+	<key>PROJECT_ID</key>
+	<string>wansoftencuestas</string>
+	<key>STORAGE_BUCKET</key>
+	<string>wansoftencuestas.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:391183607871:ios:8bf867b7fc2ec83540b08a</string>
+	<key>DATABASE_URL</key>
+	<string>https://wansoftencuestas.firebaseio.com</string>
+</dict>
+</plist>

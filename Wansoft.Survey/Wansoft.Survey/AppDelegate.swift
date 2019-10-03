@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import Firebase
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -15,25 +17,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let codigoManual = UserDefaults.standard.string(forKey: "codigoManual")
+        let codigoBarras = UserDefaults.standard.string(forKey: "codigoBarras")
+        if(codigoManual != nil){
+            SharedData.sharedInstance.codigoManual = codigoManual!
+        }else{
+            SharedData.sharedInstance.codigoManual = "true"
+        }
+        
+        if(codigoBarras != nil){
+            SharedData.sharedInstance.codigoBarras = codigoBarras!
+        }else{
+            SharedData.sharedInstance.codigoBarras = "false"
+        }
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let loginResult = RealmHelper.sharedInstance.getObject(type: LoginModel.self)
         let loginModel = loginResult as? LoginModel
-        SharedData.sharedInstance.ordenManual = UserDefaults.standard.bool(forKey: "ordenConfig")
-        let barcode = UserDefaults.standard.string(forKey: "barcodeActivo")
-        if(barcode == "" || barcode == "true" || barcode == nil){
-            SharedData.sharedInstance.barcodeActivo = true
-            UserDefaults.standard.set("\(SharedData.sharedInstance.barcodeActivo)", forKey: "barcodeActivo")
-        }else
-        {
-            SharedData.sharedInstance.barcodeActivo = false
-            UserDefaults.standard.set("\(SharedData.sharedInstance.barcodeActivo)", forKey: "barcodeActivo")
-        }
         
         if(loginModel!.idSucursal == ""){
             self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "startNavigationController")
         }else{
             self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "mainNavigationController")
         }
+        
+        FirebaseApp.configure()
+        
         return true
     }
 
@@ -45,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        let network = NetworkHelper.sharedInstance
+        /*let network = NetworkHelper.sharedInstance
         switch network.reachability.connection {
         case .cellular:
             self.sendPendientes()
@@ -53,7 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.sendPendientes()
         default:
             break
-        }
+        }*/
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -80,9 +89,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let respuestas = RealmHelper.sharedInstance.getObjectsWithPredicate(type: EncuestaRespuestas.self, predicate: predicate) as! [EncuestaRespuestas]
                 manager.sendEncuesta(encuesta: encuesta, respuestas: respuestas){ result in
                     RealmHelper.sharedInstance.deleteObjects(objects: respuestas)
+                    RealmHelper.sharedInstance.deleteObject(object: encuesta)
                 }
             }
-            RealmHelper.sharedInstance.deleteObjects(objects: encuestasPendientes)
         }
     }
 

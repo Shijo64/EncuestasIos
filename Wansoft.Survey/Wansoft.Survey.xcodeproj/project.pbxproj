@@ -35,6 +35,8 @@
 		56DEEEB321EFCAAE001481A7 /* EncuestasTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56DEEEB221EFCAAE001481A7 /* EncuestasTableViewController.swift */; };
 		56E11D0122B2FD5F00174106 /* OrderDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E11D0022B2FD5F00174106 /* OrderDateViewController.swift */; };
 		78060DEE22F4CF8600809969 /* LoginResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78060DED22F4CF8600809969 /* LoginResultModel.swift */; };
+		784EBEAA233290B600F390AF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 784EBEA9233290B500F390AF /* GoogleService-Info.plist */; };
+		78A37B3923296CB800EC1232 /* EncuestaEnviadaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A37B3823296CB800EC1232 /* EncuestaEnviadaModel.swift */; };
 		7E2123C521ED5FDA00AA06F4 /* SucursalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2123C421ED5FDA00AA06F4 /* SucursalModel.swift */; };
 		7E2834BD21ED46A400DD1C36 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2834BC21ED46A400DD1C36 /* LoginViewController.swift */; };
 		7E3AC84D21E7F9BA00D13A14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3AC84C21E7F9BA00D13A14 /* AppDelegate.swift */; };
@@ -82,6 +84,8 @@
 		56DEEEB221EFCAAE001481A7 /* EncuestasTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncuestasTableViewController.swift; sourceTree = "<group>"; };
 		56E11D0022B2FD5F00174106 /* OrderDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDateViewController.swift; sourceTree = "<group>"; };
 		78060DED22F4CF8600809969 /* LoginResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResultModel.swift; sourceTree = "<group>"; };
+		784EBEA9233290B500F390AF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		78A37B3823296CB800EC1232 /* EncuestaEnviadaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncuestaEnviadaModel.swift; sourceTree = "<group>"; };
 		7E2123C421ED5FDA00AA06F4 /* SucursalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SucursalModel.swift; sourceTree = "<group>"; };
 		7E2834BC21ED46A400DD1C36 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		7E3AC84921E7F9BA00D13A14 /* Wansoft.Survey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wansoft.Survey.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -199,6 +203,7 @@
 				7E3AC85621E7F9BC00D13A14 /* Assets.xcassets */,
 				7E3AC85821E7F9BC00D13A14 /* LaunchScreen.storyboard */,
 				7E3AC85B21E7F9BC00D13A14 /* Info.plist */,
+				784EBEA9233290B500F390AF /* GoogleService-Info.plist */,
 				7E3AC85321E7F9BA00D13A14 /* EncuestaSatisfaccion.xcdatamodeld */,
 			);
 			path = Wansoft.Survey;
@@ -243,6 +248,7 @@
 				56287755220DF24E005BE1FF /* DetalleResultadoEncuesta.swift */,
 				56164CA42283265C005B11C8 /* EncuestaSeleccionadaModel.swift */,
 				78060DED22F4CF8600809969 /* LoginResultModel.swift */,
+				78A37B3823296CB800EC1232 /* EncuestaEnviadaModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -352,6 +358,7 @@
 			files = (
 				562A581D229D89AB00322B12 /* Graphik-Bold.ttf in Resources */,
 				7E3AC85A21E7F9BC00D13A14 /* LaunchScreen.storyboard in Resources */,
+				784EBEAA233290B600F390AF /* GoogleService-Info.plist in Resources */,
 				562A5821229D89AB00322B12 /* Graphik-Semibold.ttf in Resources */,
 				7E3AC85721E7F9BC00D13A14 /* Assets.xcassets in Resources */,
 				562A5820229D89AB00322B12 /* Graphik-Regular.ttf in Resources */,
@@ -378,6 +385,7 @@
 				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
 				"${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework",
 				"${BUILT_PRODUCTS_DIR}/EmailValidator/EmailValidator.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/KRActivityIndicatorView/KRActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/KRProgressHUD/KRProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework",
@@ -397,6 +405,7 @@
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -407,6 +416,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cosmos.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EmailValidator.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KRActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KRProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFInternationalization.framework",
@@ -426,6 +436,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -470,6 +481,7 @@
 				568C0B9D21FA576D009F0B4D /* EncuestaTableViewCell.swift in Sources */,
 				56287754220DF1B8005BE1FF /* ResultadoEncuesta.swift in Sources */,
 				562E6C6621FB73C5005A1513 /* HomeViewController.swift in Sources */,
+				78A37B3923296CB800EC1232 /* EncuestaEnviadaModel.swift in Sources */,
 				7E3AC84D21E7F9BA00D13A14 /* AppDelegate.swift in Sources */,
 				562CFCD521F6613100544D4C /* EncuestaBO.swift in Sources */,
 				56DEEEB321EFCAAE001481A7 /* EncuestasTableViewController.swift in Sources */,

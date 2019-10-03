@@ -8,6 +8,7 @@
 
 import UIKit
 import KRProgressHUD
+import MaterialComponents
 
 class ResumenTableViewController: UITableViewController {
 
@@ -64,29 +65,26 @@ class ResumenTableViewController: UITableViewController {
         
         switch network.reachability.connection {
         case .none:
+            self.navigationController?.popToRootViewController(animated: true)
+            SharedData.sharedInstance.respuestas = []
             
-            let alert = UIAlertController(title: "Aviso", message: "Hubo un problema, revisa la conexión e intenta de nuevo.", preferredStyle: .alert)
-            let alertAction = UIAlertAction(title: "Aceptar", style: .default, handler: {UIAlertAction in
-                self.dismiss(animated: true, completion: nil)
-                self.navigationController?.popToRootViewController(animated: true)
-            })
-            alert.addAction(alertAction)
-            self.present(alert, animated: true, completion: {
-                SharedData.sharedInstance.respuestas = []
-            })
             break
         default:
             let manager = EncuestaManager()
-            KRProgressHUD.show()
+            //KRProgressHUD.show()
             manager.sendEncuesta(encuesta: encuestaBO, respuestas: respuestasEnviar){result in
                 if(result.response?.statusCode == 200){
-                    KRProgressHUD.showSuccess(withMessage: "La encuesta fue enviada con éxito.")
+                    let encuestaEnviada = EncuestaEnviadaModel()
+                    encuestaEnviada.idEncuesta = encuestaBO.EncuestaId
+                    encuestaEnviada.Id = encuestaEnviada.idIncrement()
+                    RealmHelper.sharedInstance.saveObject(object: encuestaEnviada)
+                    //KRProgressHUD.showSuccess(withMessage: "La encuesta fue enviada con éxito.")
                     RealmHelper.sharedInstance.deleteObject(object: encuestaBO)
                     RealmHelper.sharedInstance.deleteObjects(objects: respuestasEnviar)
                     let controller = self.storyboard?.instantiateViewController(withIdentifier: "envioViewController")
                     self.navigationController?.pushViewController(controller!, animated: true)
                 }else{
-                    KRProgressHUD.showError(withMessage: "Hubo un problema, porfavor intenta de nuevo")
+                    //KRProgressHUD.showError(withMessage: "Hubo un problema, porfavor intenta de nuevo")
                 }
             }
             break
@@ -157,7 +155,7 @@ class ResumenTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if(section == (self.respuestas?.count)! - 1){
             let footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 50))
-            let sendButton = UIButton(frame: CGRect(x: 0, y: 0, width: footerView.frame.width * 0.80, height:50))
+            let sendButton = MDCButton(frame: CGRect(x: 0, y: 0, width: footerView.frame.width * 0.80, height:50))
             sendButton.center = footerView.center
             sendButton.backgroundColor = UIColor(hexString: "#3E4883")
             sendButton.setTitle("Enviar", for: .normal)

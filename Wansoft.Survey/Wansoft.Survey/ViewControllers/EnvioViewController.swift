@@ -7,14 +7,14 @@
 //
 
 import UIKit
+import MaterialComponents
 
 class EnvioViewController: UIViewController {
 
-    @IBOutlet weak var aceptarButton: UIButton!
+    @IBOutlet weak var aceptarButton: MDCButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.aceptarButton.layer.cornerRadius = 15
         self.navigationItem.setHidesBackButton(true, animated: true)
     }
     

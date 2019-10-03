@@ -17,10 +17,11 @@ class SharedData{
     var user:String = ""
     var password:String = ""
     var font = UIFont(name: "Graphik-Regular.ttf", size: UIFont.systemFontSize)
-    var ordenManual = false
-    var barcodeActivo = true
     var fechaOrden = Date()
     var login = LoginModel()
+    var codigoManual = ""
+    var codigoBarras = ""
+    var idEncuestaSeleccionada = 0
     
     static let sharedInstance = SharedData()
     

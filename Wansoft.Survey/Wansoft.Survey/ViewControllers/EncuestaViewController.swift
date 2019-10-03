@@ -27,19 +27,20 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
     var currentTextfield:UITextField?
     var currentDate = Date()
     var errorPantalla = false
-    
+    var lastIndexPath:IndexPath?
     var emailController:MDCTextInputControllerOutlined?
     var celularController:MDCTextInputControllerOutlined?
     var textoController:MDCTextInputControllerOutlined?
     var commentController:MDCTextInputControllerUnderline?
     
-    @IBOutlet weak var atrasButton: UIButton!
-    @IBOutlet weak var siguienteButton: UIButton!
+    @IBOutlet weak var atrasButton: MDCButton!
+    @IBOutlet weak var siguienteButton: MDCButton!
     @IBOutlet weak var preguntaLabel: UILabel!
     @IBOutlet weak var controlView: UIView!
     @IBOutlet weak var atrasButtonWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var siguienteButtonWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var numeroPreguntaLabel: UILabel!
+    @IBOutlet weak var controlViewHeight: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -299,29 +300,44 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
         break*/
         case TipoPreguntaEnum.segmento.rawValue:
             self.currentControl = "segmento"
-            var segmentoData:[String] = []
-            for opcion in opciones{
-                segmentoData.append(opcion.Description)
-            }
-            if(opciones.count > 0){
-                let segment = UISegmentedControl(items: segmentoData)
-                segment.frame = CGRect(x: 0, y: 0, width: self.controlView.frame.width, height: self.controlView.frame.height * 0.20)
-                segment.backgroundColor = UIColor.darkGray
-                segment.tintColor = UIColor.flatWhite()
-                segment.addTarget(self, action: #selector(self.opcionSeleccionada(sender:)), for: .valueChanged)
+            let guardada = opciones.first(where: {$0.Id == Int(respuestaGuardada.respuesta)})
+            
+            if(guardada == nil){
+                var opcion = opciones.first(where: {$0.Default == true})
                 
-                if  respuestaGuardada.respuesta != ""{
+                if(opcion != nil){
+                    respuestaGuardada.respuesta = "\(opcion!.Id)"
+                }else{
+                    opcion = opciones.first
+                    respuestaGuardada.respuesta = "\(opcion!.Id)"
+                }
+            }
+            self.guardarRespuesta(respuesta: respuestaGuardada)
+            
+            if(opciones.count > 0){
+                let segment = UITableView(frame: CGRect(x: 0, y: 0, width: self.controlView.frame.width, height: self.controlView.frame.height), style: .plain)
+                segment.delegate = self
+                segment.dataSource = self
+                segment.register(UITableViewCell.self, forCellReuseIdentifier: "SegmentoCell")
+                segment.backgroundColor = UIColor.clear
+                segment.separatorStyle = .singleLineEtched
+                segment.tableFooterView = UIView(frame: CGRect.zero)
+                //segment.backgroundColor = UIColor.darkGray
+                //segment.tintColor = UIColor.flatWhite()
+                //segment.addTarget(self, action: #selector(self.opcionSeleccionada(sender:)), for: .valueChanged)
+                
+                /*if  respuestaGuardada.respuesta != ""{
                     let opcionGuardada = opciones.filter{$0.Id == Int(respuestaGuardada.respuesta)}.first
-                    segment.selectedSegmentIndex = (opcionGuardada?.Order)! - 1
+                    //segment.selectedSegmentIndex = (opcionGuardada?.Order)! - 1
                 }else{
                     var opcionGuardada = opciones.filter{$0.Default == true}.first
                     if(opcionGuardada == nil){
                         opcionGuardada = opciones.first
                     }
-                    segment.selectedSegmentIndex = (opcionGuardada?.Order)! - 1
+                    //segment.selectedSegmentIndex = (opcionGuardada?.Order)! - 1
                     respuestaGuardada.respuesta = "\((opcionGuardada?.Id)!)"
                     self.guardarRespuesta(respuesta: respuestaGuardada)
-                }
+                }*/
                 
                 self.controlView.addSubview(segment)
             }
@@ -386,6 +402,22 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
         break
         case TipoPreguntaEnum.opcionMultiple.rawValue:
             self.currentControl = "opcionMultiple"
+            
+            let guardada = respuestaGuardada.arrayRespuestas
+            
+            if(guardada.count < 1){
+                var opcion = opciones.first(where: {$0.Default == true})
+                
+                if(opcion == nil){
+                    opcion = opciones.first
+                }
+                
+                
+                respuestaGuardada.arrayRespuestas.append("\(opcion!.Id)")
+                respuestaGuardada.respuesta = (respuestaGuardada.arrayRespuestas.joined(separator: ","))
+                self.guardarRespuesta(respuesta: respuestaGuardada)
+            }
+            
             let opcionMultipleTableView = UITableView(frame: CGRect(x: 0, y: 0, width: self.controlView.frame.width, height: self.controlView.frame.height), style: .plain)
             opcionMultipleTableView.delegate = self
             opcionMultipleTableView.dataSource = self
@@ -541,27 +573,50 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "OpcionMultipleCell")
-        cell?.tintColor = UIColor.white
-        cell?.selectionStyle = .none
-        let opciones = self.getOpciones()
-        let opcion = opciones[indexPath.row]
-        let respuestas = SharedData.sharedInstance.respuestas.filter{$0.numeroPregunta == self.dataSet?.Order}
-        if(respuestas.count > 0){
-            let respuesta = respuestas.first
-            if((respuesta?.arrayRespuestas.contains("\(opcion.Id)"))!){
-                cell?.accessoryType = .checkmark
-            }else{
-                cell?.accessoryType = .none
+        if(self.dataSet?.QuestionType?.Description == TipoPreguntaEnum.opcionMultiple.rawValue){
+            let cell = tableView.dequeueReusableCell(withIdentifier: "OpcionMultipleCell")
+            cell?.tintColor = UIColor.white
+            cell?.selectionStyle = .none
+            let opciones = self.getOpciones()
+            let opcion = opciones[indexPath.row]
+            let respuestas = SharedData.sharedInstance.respuestas.filter{$0.numeroPregunta == self.dataSet?.Order}
+            if(respuestas.count > 0){
+                let respuesta = respuestas.first
+                if((respuesta?.arrayRespuestas.contains("\(opcion.Id)"))!){
+                    cell?.accessoryType = .checkmark
+                }else{
+                    cell?.accessoryType = .none
+                }
+                
+                cell!.textLabel?.text = opcion.Description
+                cell?.textLabel?.textColor = UIColor.white
             }
+            return cell!
+        }else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SegmentoCell")
+            cell?.tintColor = UIColor.white
+            cell?.selectionStyle = .none
+            let opciones = self.getOpciones()
+            let opcion = opciones[indexPath.row]
+            let respuestas = SharedData.sharedInstance.respuestas.filter{$0.numeroPregunta == self.dataSet?.Order}
+            if(respuestas.count > 0){
+                let respuesta = respuestas.first
+                if(respuesta?.respuesta == "\(opcion.Id)"){
+                    cell?.accessoryType = .checkmark
+                    self.lastIndexPath = indexPath
+                }
+                else{
+                    cell?.accessoryType = .none
+                }
+                cell!.textLabel?.text = opcion.Description
+                cell?.textLabel?.textColor = UIColor.white
+            }
+            return cell!
         }
-        
-        cell!.textLabel?.text = opcion.Description
-        cell?.textLabel?.textColor = UIColor.white
-        return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         var answer:EncuestaRespuestas?
         let opciones = self.getOpciones()
         let opcion = opciones[indexPath.row]
@@ -575,24 +630,33 @@ class EncuestaViewController: UIViewController, UITableViewDelegate, UITableView
             answer!.idPregunta = (self.dataSet?.Id)!
         }
         let cell = tableView.cellForRow(at: indexPath)
-        let busqueda = answer?.arrayRespuestas.filter{$0 == "\(opcion.Id)"}
-        if(busqueda!.count > 0){
-            cell?.accessoryType = .none
-            let index = answer?.arrayRespuestas.firstIndex(of: "\(opcion.Id)")
-            answer?.arrayRespuestas.remove(at: index!)
-            answer?.respuesta = (answer?.arrayRespuestas.joined(separator: ","))!
-            self.guardarRespuesta(respuesta: answer!)
-            //let indexAnswer = SharedData.sharedInstance.respuestas.firstIndex{$0.numeroPregunta == answer?.numeroPregunta}
-            //SharedData.sharedInstance.respuestas[indexAnswer!] = answer!
-        }else{
+        if(cell?.reuseIdentifier == "SegmentoCell"){
+            let oldCell = tableView.cellForRow(at: self.lastIndexPath!)
+            oldCell?.accessoryType = .none
             cell?.accessoryType = .checkmark
-            let opcionSeleccionada = opciones[indexPath.row]
-            answer!.idEncuesta = (self.dataSet?.SurveyId)!
-            answer!.numeroPregunta = (self.dataSet?.Order)!
-            answer!.idPregunta = (self.dataSet?.Id)!
-            answer?.arrayRespuestas.append("\(opcionSeleccionada.Id)")
-            answer?.respuesta = (answer?.arrayRespuestas.joined(separator: ","))!
+            self.lastIndexPath = indexPath
+            answer?.respuesta = "\(opcion.Id)"
             self.guardarRespuesta(respuesta: answer!)
+        }else{
+            let busqueda = answer?.arrayRespuestas.filter{$0 == "\(opcion.Id)"}
+            if(busqueda!.count > 0){
+                cell?.accessoryType = .none
+                let index = answer?.arrayRespuestas.firstIndex(of: "\(opcion.Id)")
+                answer?.arrayRespuestas.remove(at: index!)
+                answer?.respuesta = (answer?.arrayRespuestas.joined(separator: ","))!
+                self.guardarRespuesta(respuesta: answer!)
+                //let indexAnswer = SharedData.sharedInstance.respuestas.firstIndex{$0.numeroPregunta == answer?.numeroPregunta}
+                //SharedData.sharedInstance.respuestas[indexAnswer!] = answer!
+            }else{
+                cell?.accessoryType = .checkmark
+                let opcionSeleccionada = opciones[indexPath.row]
+                answer!.idEncuesta = (self.dataSet?.SurveyId)!
+                answer!.numeroPregunta = (self.dataSet?.Order)!
+                answer!.idPregunta = (self.dataSet?.Id)!
+                answer?.arrayRespuestas.append("\(opcionSeleccionada.Id)")
+                answer?.respuesta = (answer?.arrayRespuestas.joined(separator: ","))!
+                self.guardarRespuesta(respuesta: answer!)
+            }
         }
     }
 

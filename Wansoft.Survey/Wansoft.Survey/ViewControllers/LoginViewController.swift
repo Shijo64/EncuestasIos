@@ -68,6 +68,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                             SharedData.sharedInstance.dismissProgressHud()
                         })
                     }else{
+                        SharedData.sharedInstance.dismissProgressHud()
                         let alert = UIAlertController(title: "Aviso", message: result.Message, preferredStyle: .alert)
                         let action = UIAlertAction(title: "Aceptar", style: .default, handler: nil)
                         action.setValue(UIColor(hexString: "#3E4883"), forKey: "titleTextColor")

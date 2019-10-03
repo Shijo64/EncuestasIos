@@ -12,7 +12,8 @@ class EncuestaTableViewCell: UITableViewCell {
 
     @IBOutlet weak var tipoEncuestaLabel: UILabel!
     @IBOutlet weak var encuestaCellView: UIView!
-    @IBOutlet weak var pendienteCantidadLabel: UILabel!
+    @IBOutlet weak var completadasLabel: UILabel!
+    @IBOutlet weak var pendientesLabel: UILabel!
     
     
     override func awakeFromNib() {
@@ -26,8 +27,23 @@ class EncuestaTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    func configureCell(encuesta:EncuestaModel, pendientes:Int){
+    func configureCell(encuesta:EncuestaModel){
         self.encuestaCellView.layer.cornerRadius = 15
-        self.tipoEncuestaLabel.text = encuesta.Name! + " Pendientes:(\(pendientes))"
+        self.tipoEncuestaLabel.text = encuesta.Name!
+        self.checkPendientes(currentEncuesta: encuesta)
+    }
+    
+    func checkPendientes(currentEncuesta: EncuestaModel){
+        let completadasTotales = RealmHelper.sharedInstance.getObjects(type: EncuestaEnviadaModel.self) as! [EncuestaEnviadaModel]
+        let pendientesTotales = RealmHelper.sharedInstance.getObjects(type: EncuestaBO.self) as! [EncuestaBO]
+        let completadas = completadasTotales.filter{$0.idEncuesta == currentEncuesta.Id}
+        let pendientes = pendientesTotales.filter{$0.EncuestaId == currentEncuesta.Id}
+        if(pendientes.count > 0){
+            self.pendientesLabel.text = "\(pendientes.count) pendientes"
+        }
+        
+        if(completadas.count > 0){
+            self.completadasLabel.text = "\(completadas.count) completadas"
+        }
     }
 }

@@ -22,4 +22,6 @@ pod 'CameraBackground'
 pod 'EmailValidator'
 pod 'MaterialComponents'
 pod 'CVCalendar'
+pod 'Firebase/Analytics'
+pod 'Crashlytics'
 end

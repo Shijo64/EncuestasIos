@@ -30,12 +30,21 @@ class HomeViewController: UIViewController, UITextFieldDelegate, BarcodeDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.encuestaActualizada), name: NSNotification.Name(rawValue: "EncuestaActualizada"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.encuestaActualizada), name: NSNotification.Name(rawValue: "EncuestasActualizada"), object: nil)
+        self.getEncuestaDefault()
         self.numeroOrdenTextfield.text = ""
         self.numeroOrdenController = MDCTextInputControllerOutlined(textInput: self.numeroOrdenTextfield)
         
         let logo = UIImage(named: "logo-completo")
-        let imageView = UIImageView(image:logo)
-        self.navigationItem.titleView = imageView
+        let buttonMenu = UIButton(type: .custom)
+        buttonMenu.frame = CGRect(x: 0, y: 0, width: 300, height: 60)
+        buttonMenu.setImage(logo, for: .normal)
+        buttonMenu.setImage(logo, for: .highlighted)
+        self.navigationItem.titleView = buttonMenu
+        let longTap = UILongPressGestureRecognizer(target: self, action: #selector(self.showMenu))
+        buttonMenu.addGestureRecognizer(longTap)
         
         SideMenuManager.default.menuPresentMode = .menuSlideIn
         SideMenuManager.default.menuFadeStatusBar = false
@@ -54,21 +63,28 @@ class HomeViewController: UIViewController, UITextFieldDelegate, BarcodeDelegate
         self.fechaOrdenLabel.text = dateString
         SharedData.sharedInstance.fechaOrden = date
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.buscarPendientes()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
-        if(SharedData.sharedInstance.ordenManual){
+        self.navigationController?.navigationBar.isUserInteractionEnabled = true
+        self.navigationItem.setHidesBackButton(true, animated: true)
+        let codigoManual = SharedData.sharedInstance.codigoManual
+        if(codigoManual == "true"){
             self.numeroOrdenTextfield.isUserInteractionEnabled = true
         }else{
             self.numeroOrdenTextfield.isUserInteractionEnabled = false
         }
         
-        if(SharedData.sharedInstance.barcodeActivo){
+        let codigoBarras = SharedData.sharedInstance.codigoBarras
+        if(codigoBarras == "true"){
             self.codigoBarrasButton.isHidden = false
         }else{
             self.codigoBarrasButton.isHidden = true
         }
         
-        self.buscarPendientes()
-        self.getEncuestaDefault()
         SharedData.sharedInstance.dismissProgressIfVisible()
         self.numeroOrdenTextfield.resignFirstResponder()
     }
@@ -78,6 +94,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate, BarcodeDelegate
         if((encuestaSelectGuardada?.id)! > 0) {
             let predicado = "Id = \(encuestaSelectGuardada!.idEncuesta)"
             self.encuesta = (RealmHelper.sharedInstance.getObjectsWithPredicate(type: EncuestaModel.self, predicate: predicado)?.first as! EncuestaModel)
+            SharedData.sharedInstance.idEncuestaSeleccionada = self.encuesta!.Id
         }
         if(self.encuesta?.Name == nil) {
             let predicate = "Default = true"
@@ -87,33 +104,40 @@ class HomeViewController: UIViewController, UITextFieldDelegate, BarcodeDelegate
         }else{
             self.tipoEncuestaLabel.text = self.encuesta?.Name
         }
-
+    }
+    
+    @objc func showMenu(){
+        SharedData.sharedInstance.idEncuestaSeleccionada = self.encuesta!.Id
+        let controller = self.storyboard?.instantiateViewController(withIdentifier: "sideMenu") as! UISideMenuNavigationController
+        self.present(controller, animated: true, completion: nil)
+    }
+    
+    @objc func encuestaActualizada(not:Notification){
+        self.encuesta = not.userInfo?["Encuesta"] as? EncuestaModel
+        self.tipoEncuestaLabel.text = self.encuesta?.Name
     }
     
     @objc func buscarPendientes(){
         let network = NetworkHelper.sharedInstance
-        switch network.reachability.connection {
-        case .none:
-            if(!self.isTimerRunning){
-                timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(buscarPendientes), userInfo: nil, repeats: false)
-                self.isTimerRunning = true
-            }
-        default:
-            self.isTimerRunning = false
-            let data = RealmHelper.sharedInstance.getObjects(type: EncuestaBO.self)
-            self.encuestasPendientes = (data as! [EncuestaBO])
-            if(((self.encuestasPendientes?.count)!) > 0){
-                let manager = EncuestaManager()
-                for encuesta in self.encuestasPendientes!{
-                    let predicate = "idEncuestaBO = \(encuesta.Id)"
-                    let respuestas = RealmHelper.sharedInstance.getObjectsWithPredicate(type: EncuestaRespuestas.self, predicate: predicate) as! [EncuestaRespuestas]
+        let data = RealmHelper.sharedInstance.getObjects(type: EncuestaBO.self)
+        self.encuestasPendientes = (data as! [EncuestaBO])
+        if(((self.encuestasPendientes?.count)!) > 0){
+            let manager = EncuestaManager()
+            for encuesta in self.encuestasPendientes!{
+                let predicate = "idEncuestaBO = \(encuesta.Id)"
+                let respuestas = RealmHelper.sharedInstance.getObjectsWithPredicate(type: EncuestaRespuestas.self, predicate: predicate) as! [EncuestaRespuestas]
+                if(network.reachability.connection == .cellular || network.reachability.connection == .wifi){
                     manager.sendEncuesta(encuesta: encuesta, respuestas: respuestas){ result in
+                        let encuestaEnviada = EncuestaEnviadaModel()
+                        encuestaEnviada.idEncuesta = encuesta.EncuestaId
+                        encuestaEnviada.Id = encuestaEnviada.idIncrement()
                         RealmHelper.sharedInstance.deleteObjects(objects: respuestas)
+                        RealmHelper.sharedInstance.deleteObject(object: encuesta)
                     }
                 }
-                RealmHelper.sharedInstance.deleteObjects(objects: self.encuestasPendientes!)
             }
         }
+
     }
     
     @IBAction func iniciarEncuesta(_ sender: Any) {
@@ -130,6 +154,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate, BarcodeDelegate
             let controller = self.storyboard?.instantiateViewController(withIdentifier: "EncuestaController") as! EncuestaViewController
             controller.encuesta = self.encuesta
             self.navigationController?.pushViewController(controller, animated: true)
+            self.numeroOrdenTextfield.text = ""
         }
     }
     
@@ -171,6 +196,11 @@ class HomeViewController: UIViewController, UITextFieldDelegate, BarcodeDelegate
         self.fechaOrdenLabel.text = dateString
         
         self.numeroOrdenController?.setErrorText(nil, errorAccessibilityValue: nil)
+    }
+    
+    func setEncuestaActualizada(encuesta: EncuestaModel) {
+        self.encuesta = encuesta
+        self.tipoEncuestaLabel.text = "Prueba"
     }
     
     //MARK: TEXTFIELD

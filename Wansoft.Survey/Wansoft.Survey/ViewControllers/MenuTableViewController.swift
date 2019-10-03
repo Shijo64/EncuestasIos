@@ -14,6 +14,8 @@ class MenuTableViewController: UITableViewController {
     @IBOutlet weak var vistaCelda2: UIView!
     @IBOutlet weak var vistaCelda3: UIView!
     
+    var encuesta:EncuestaModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -64,54 +66,34 @@ class MenuTableViewController: UITableViewController {
             })
         }
         else if(indexPath.row == 1){
-            self.showSucursalAlert(){
-                result in
-                if(result){
-                    let controller = self.storyboard?.instantiateViewController(withIdentifier: "encuestasController")
-                    self.navigationController?.pushViewController(controller!, animated: true)
-                }else{
-                    let message = "Necesitas el id de la sucursal para ver las encuestas"
-                    self.showErrorCodigoSucursal(message: message)
-                }
-            }
+            self.actualizarEncuestas()
         }
         else if(indexPath.row == 2){
-            self.showSucursalAlert(){
-                result in
-                if (result){
-                    var currentLogin = RealmHelper.sharedInstance.getObject(type: LoginModel.self) as! LoginModel
-                    SharedData.sharedInstance.login.idSucursal = currentLogin.idSucursal
-                    SharedData.sharedInstance.login.password = currentLogin.password
-                    SharedData.sharedInstance.showProgress()
-                    self.dismiss(animated: true, completion: {
-                        let controller = self.storyboard?.instantiateViewController(withIdentifier: "startNavigationController")
-                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                        appDelegate.window?.rootViewController = controller
-                        self.navigationController?.popToRootViewController(animated: true)
-                        self.limpiarBaseDatos()
-                        SharedData.sharedInstance.dismissProgressHud()
-                    })
-                }else{
-                    let message = "Necesitas el id de la sucursal para poder cambiar de sucursal"
-                    self.showErrorCodigoSucursal(message: message)
-                }
-            }
+            let controller = self.storyboard?.instantiateViewController(withIdentifier: "encuestasController")
+            self.navigationController?.pushViewController(controller!, animated: true)
         }
         else if(indexPath.row == 3){
-            self.showSucursalAlert(){
-                result in
-                if(result){
-                    let controller = self.storyboard?.instantiateViewController(withIdentifier: "configuracionController")
-                    self.navigationController?.pushViewController(controller!, animated: true)
-                }else{
-                    let message = "Necesitas el id de la sucursal para poder entrar a la configuración"
-                    self.showErrorCodigoSucursal(message: message)
-                }
-            }
+            var currentLogin = RealmHelper.sharedInstance.getObject(type: LoginModel.self) as! LoginModel
+            SharedData.sharedInstance.login.idSucursal = currentLogin.idSucursal
+            SharedData.sharedInstance.login.password = currentLogin.password
+            SharedData.sharedInstance.showProgress()
+            self.dismiss(animated: true, completion: {
+                let controller = self.storyboard?.instantiateViewController(withIdentifier: "startNavigationController")
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDelegate.window?.rootViewController = controller
+                self.navigationController?.popToRootViewController(animated: true)
+                self.limpiarBaseDatos()
+                SharedData.sharedInstance.dismissProgressHud()
+            })
         }
         else if(indexPath.row == 4){
+            let controller = self.storyboard?.instantiateViewController(withIdentifier: "configuracionController")
+            self.navigationController?.pushViewController(controller!, animated: true)
+        }else if(indexPath.row == 5){
             let controller = self.storyboard?.instantiateViewController(withIdentifier: "acercaDeController")
             self.navigationController?.pushViewController(controller!, animated: true)
+        }else if(indexPath.row == 6){
+            UIControl().sendAction(#selector(NSXPCConnection.suspend), to: UIApplication.shared, for: nil)
         }
     }
     
@@ -150,6 +132,22 @@ class MenuTableViewController: UITableViewController {
         view.endEditing(true)
     }
 
+    func actualizarEncuestas(){
+        let manager = EncuestaManager()
+        let login = RealmHelper.sharedInstance.getObject(type: LoginModel.self) as! LoginModel
+        manager.getEncuestas(login: login){
+            result in
+            if(result.MessageType == 1){
+                let encuestas = RealmHelper.sharedInstance.getObjects(type: EncuestaModel.self) as! [EncuestaModel]
+                let encuesta = encuestas.filter{$0.Id == SharedData.sharedInstance.idEncuestaSeleccionada}.first
+                SharedData.sharedInstance.idEncuestaSeleccionada = encuesta!.Id
+                let objectDict:[String:EncuestaModel] = ["Encuesta":encuesta!]
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "EncuestaActualizada"), object: nil, userInfo: objectDict)
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

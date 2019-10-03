@@ -43,6 +43,10 @@ class EncuestasTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        //self.buscarPendientes()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         //self.encuestas = SharedData.sharedInstance.sucursal?.Encuestas
         //let backgroundImage = UIImage(named: "restaurant-desk")
@@ -52,7 +56,6 @@ class EncuestasTableViewController: UITableViewController {
         let data = RealmHelper.sharedInstance.getObjects(type: EncuestaModel.self)
         self.encuestas = (data as! [EncuestaModel])
         self.tableView.reloadData()
-        self.buscarPendientes()
     }
     
     @objc func buscarActualizaciones(){
@@ -75,7 +78,19 @@ class EncuestasTableViewController: UITableViewController {
                 if(result.MessageType == 1){
                     //RealmHelper.sharedInstance.saveObject(object: login)
                     //RealmHelper.sharedInstance.guardarEncuestas(encuestas: result.Encuestas)
+                    let encuestaSelectGuardada = RealmHelper.sharedInstance.getObject(type: EncuestaSeleccionadaModel.self) as? EncuestaSeleccionadaModel
                     self.encuestas = (RealmHelper.sharedInstance.getObjects(type: EncuestaModel.self) as! [EncuestaModel])
+                    let encuestasActualizadas = self.encuestas!.filter{$0.Id == encuestaSelectGuardada?.idEncuesta}
+                    var encuesta = EncuestaModel()
+                    if(encuestasActualizadas.count > 0){
+                        encuesta = self.encuestas!.filter{$0.Id == encuestaSelectGuardada?.idEncuesta}.first!
+                    }else{
+                        encuesta = self.encuestas![0]
+                    }
+                    
+                    SharedData.sharedInstance.idEncuestaSeleccionada = encuesta.Id
+                    let objectDict:[String:EncuestaModel] = ["Encuesta":encuesta]
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "EncuestasActualizada"), object: nil, userInfo: objectDict)
                     self.tableView.reloadData()
                     self.refresh.endRefreshing()
                 }
@@ -86,26 +101,22 @@ class EncuestasTableViewController: UITableViewController {
     
     @objc func buscarPendientes(){
         let network = NetworkHelper.sharedInstance
-        switch network.reachability.connection {
-        case .none:
-            if(!self.isTimerRunning){
-                timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(buscarPendientes), userInfo: nil, repeats: false)
-                self.isTimerRunning = true
-            }
-        default:
-            self.isTimerRunning = false
-            let data = RealmHelper.sharedInstance.getObjects(type: EncuestaBO.self)
-            self.encuestasPendientes = (data as! [EncuestaBO])
-            if(((self.encuestasPendientes?.count)!) > 0){
-                let manager = EncuestaManager()
-                for encuesta in self.encuestasPendientes!{
-                    let predicate = "idEncuestaBO = \(encuesta.Id)"
-                    let respuestas = RealmHelper.sharedInstance.getObjectsWithPredicate(type: EncuestaRespuestas.self, predicate: predicate) as! [EncuestaRespuestas]
+        let data = RealmHelper.sharedInstance.getObjects(type: EncuestaBO.self)
+        self.encuestasPendientes = (data as! [EncuestaBO])
+        if(((self.encuestasPendientes?.count)!) > 0){
+            let manager = EncuestaManager()
+            for encuesta in self.encuestasPendientes!{
+                let predicate = "idEncuestaBO = \(encuesta.Id)"
+                let respuestas = RealmHelper.sharedInstance.getObjectsWithPredicate(type: EncuestaRespuestas.self, predicate: predicate) as! [EncuestaRespuestas]
+                if(network.reachability.connection == .cellular || network.reachability.connection == .wifi){
                     manager.sendEncuesta(encuesta: encuesta, respuestas: respuestas){ result in
+                        let encuestaEnviada = EncuestaEnviadaModel()
+                        encuestaEnviada.idEncuesta = encuesta.EncuestaId
+                        encuestaEnviada.Id = encuestaEnviada.idIncrement()
                         RealmHelper.sharedInstance.deleteObjects(objects: respuestas)
+                        RealmHelper.sharedInstance.deleteObject(object: encuesta)
                     }
                 }
-                RealmHelper.sharedInstance.deleteObjects(objects: self.encuestasPendientes!)
             }
         }
     }
@@ -124,10 +135,9 @@ class EncuestasTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let encuesta = self.encuestas![indexPath.section]
-        let pendientes = self.encuestasPendientes?.filter{$0.EncuestaId == encuesta.Id}
         let cell = tableView.dequeueReusableCell(withIdentifier: "encuestaCell", for: indexPath) as! EncuestaTableViewCell
-        cell.configureCell(encuesta: encuesta, pendientes: (pendientes?.count)!)
+        let encuesta = self.encuestas![indexPath.section]
+        cell.configureCell(encuesta: encuesta)
         
         return cell
     }
@@ -135,6 +145,7 @@ class EncuestasTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         RealmHelper.sharedInstance.deleteEncuestasSeleccionadas()
         let encuestaSeleccionada = self.encuestas![indexPath.section]
+        SharedData.sharedInstance.idEncuestaSeleccionada = encuestaSeleccionada.Id
         let encuestaSelect = EncuestaSeleccionadaModel()
         encuestaSelect.id = 1
         encuestaSelect.idEncuesta = encuestaSeleccionada.Id

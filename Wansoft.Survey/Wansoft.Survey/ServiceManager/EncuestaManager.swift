@@ -45,35 +45,6 @@ public class EncuestaManager{
                     completionHandler(result)
                 }
             }
-            /*if let result = response.result.value as? [String:Any] {
-                if let callResult = result["Success"]{
-                    let message = result["Message"] as! String
-                    SharedData.sharedInstance.progressError(message: message)
-                }
-            }else{
-                let jsonArray = response.result.value as! [[String:Any]]
-                let encuestas = Mapper<EncuestaModel>().mapArray(JSONArray: jsonArray)
-                var encuestasFiltradas:[EncuestaModel] = []
-                for encuesta in encuestas{
-                    var preguntasLista:List<PreguntaModel> = List<PreguntaModel>()
-                    var sortedPreguntas:[PreguntaModel] = []
-                    for pregunta in encuesta.Questions{
-                        sortedPreguntas.append(pregunta)
-                    }
-                    let preguntas = sortedPreguntas.sorted(by: { $0.Order < $1.Order })
-                    for pregunta in preguntas{
-                        if(pregunta.Status == 1){
-                            preguntasLista.append(pregunta)
-                        }
-                    }
-                    encuesta.Questions = preguntasLista
-                    encuestasFiltradas.append(encuesta)
-                }
-                
-                RealmHelper.sharedInstance.updateEncuestas(encuestas: encuestasFiltradas)
-                //RealmHelper.sharedInstance.guardarEncuestas(encuestas: encuestasFiltradas)
-                completionHandler(true)
-            }*/
         }
     }
     

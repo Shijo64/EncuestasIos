@@ -9,6 +9,7 @@
 import UIKit
 
 class ConfiguracionTableViewController: UITableViewController {
+    let userDefaults = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,31 +36,35 @@ class ConfiguracionTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         if(indexPath.row == 0){
-            if(SharedData.sharedInstance.ordenManual){
-                SharedData.sharedInstance.ordenManual = false
+            if(SharedData.sharedInstance.codigoManual == "true"){
+                SharedData.sharedInstance.codigoManual = "false"
                 cell?.accessoryType = .none
+                self.userDefaults.set("false", forKey: "codigoManual")
             }else{
-                SharedData.sharedInstance.ordenManual = true
+                SharedData.sharedInstance.codigoManual = "true"
                 cell?.accessoryType = .checkmark
+                self.userDefaults.set("true", forKey: "codigoManual")
             }
         }else{
-            if(SharedData.sharedInstance.barcodeActivo){
-                SharedData.sharedInstance.barcodeActivo = false
+            if(SharedData.sharedInstance.codigoBarras == "true"){
+                SharedData.sharedInstance.codigoBarras = "false"
                 cell?.accessoryType = .none
+                self.userDefaults.set("false", forKey: "codigoBarras")
             }else{
-                SharedData.sharedInstance.barcodeActivo = true
+                SharedData.sharedInstance.codigoBarras = "true"
                 cell?.accessoryType = .checkmark
+                self.userDefaults.set("true", forKey: "codigoBarras")
             }
         }
         
-        UserDefaults.standard.set("\(SharedData.sharedInstance.barcodeActivo)", forKey: "barcodeActivo")
-        UserDefaults.standard.set(SharedData.sharedInstance.ordenManual, forKey: "ordenConfig")
+        //UserDefaults.standard.set("\(SharedData.sharedInstance.barcodeActivo)", forKey: "barcodeActivo")
+        //UserDefaults.standard.set(SharedData.sharedInstance.ordenManual, forKey: "ordenConfig")
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if(indexPath.row == 0){
             let cell = tableView.dequeueReusableCell(withIdentifier: "nordenCell")
-            if(SharedData.sharedInstance.ordenManual){
+            if(SharedData.sharedInstance.codigoManual == "true"){
                 cell?.accessoryType = .checkmark
             }else{
                 cell?.accessoryType = .none
@@ -68,7 +73,7 @@ class ConfiguracionTableViewController: UITableViewController {
             return cell!
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "codigoCell")
-            if(SharedData.sharedInstance.barcodeActivo){
+            if(SharedData.sharedInstance.codigoBarras == "true"){
                 cell?.accessoryType = .checkmark
             }else{
                 cell?.accessoryType = .none
